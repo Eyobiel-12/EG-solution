@@ -15,7 +15,7 @@ export default function EGLogo({ className = "", variant = "default", showText =
     xl: "h-24 w-24",
   }
 
-  const logoSrc = "/images/logoo.png"
+  const logoSrc = "/logoo.PNG"
 
   return (
     <div className={`flex items-center ${className}`}>

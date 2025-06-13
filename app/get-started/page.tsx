@@ -400,7 +400,7 @@ export default function GetStartedPage() {
             <div className="text-center mb-8">
               <div className="w-32 h-32 mx-auto mb-6">
                 <img
-                  src="/placeholder.svg?height=128&width=128"
+                  src="/logoo.PNG"
                   alt="Project Selection"
                   className="w-full h-full object-contain"
                 />
@@ -429,7 +429,7 @@ export default function GetStartedPage() {
             <div className="text-center mb-8">
               <div className="w-32 h-32 mx-auto mb-6">
                 <img
-                  src="/placeholder.svg?height=128&width=128"
+                  src="/logoo.PNG"
                   alt="Project Details"
                   className="w-full h-full object-contain"
                 />
@@ -517,7 +517,7 @@ export default function GetStartedPage() {
             <div className="text-center mb-8">
               <div className="w-32 h-32 mx-auto mb-6">
                 <img
-                  src="/placeholder.svg?height=128&width=128"
+                  src="/logoo.PNG"
                   alt="Contact Information"
                   className="w-full h-full object-contain"
                 />
@@ -616,7 +616,7 @@ export default function GetStartedPage() {
             <div className="text-center mb-8">
               <div className="w-32 h-32 mx-auto mb-6">
                 <img
-                  src="/placeholder.svg?height=128&width=128"
+                  src="/logoo.PNG"
                   alt="Review Information"
                   className="w-full h-full object-contain"
                 />
