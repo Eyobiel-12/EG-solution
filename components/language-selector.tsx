@@ -28,6 +28,9 @@ export default function LanguageSelector({ className, variant = "header" }: Lang
   const isFooter = variant === "footer"
   const isHeader = variant === "header"
 
+  // Only show English and Dutch
+  const filteredLanguages = languages.filter(lang => ["en", "nl"].includes(lang.code))
+
   return (
     <div className={className}>
       <DropdownMenu>
@@ -44,12 +47,12 @@ export default function LanguageSelector({ className, variant = "header" }: Lang
           >
             <Globe className="h-4 w-4" />
             <span className="hidden sm:inline">
-              {languages.find((lang) => lang.code === currentLanguage)?.flag || "🌐"}
+              {filteredLanguages.find((lang) => lang.code === currentLanguage)?.flag || "🌐"}
             </span>
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className={cn(isFooter && "bg-blue-950 border-blue-800", "min-w-[150px]")}>
-          {languages.map((language) => (
+          {filteredLanguages.map((language) => (
             <DropdownMenuItem
               key={language.code}
               className={cn(

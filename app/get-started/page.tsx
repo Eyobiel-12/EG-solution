@@ -37,9 +37,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { cn } from "@/lib/utils"
 import { ChevronRight } from "lucide-react"
 import emailjs from '@emailjs/browser';
-
-// Initialize EmailJS
-emailjs.init("fT-abc-a8qyPCy5Ak");
+import { useLanguage } from "@/components/language-context"
 
 interface StepNavigationProps {
   onSubmit?: () => void
@@ -96,6 +94,7 @@ function StepNavigation({
 }
 
 export default function GetStartedPage() {
+  const { t } = useLanguage()
   const [formErrors, setFormErrors] = useState<Record<string, string>>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [formProgress, setFormProgress] = useState(0)
@@ -158,6 +157,11 @@ export default function GetStartedPage() {
     return re.test(email)
   }
 
+  // Add EmailJS initialization in useEffect
+  useEffect(() => {
+    emailjs.init("fT-abc-a8qyPCy5Ak");
+  }, []);
+
   // Update the handleSubmit function
   const handleSubmit = async () => {
     // Validate form
@@ -203,11 +207,11 @@ export default function GetStartedPage() {
         } else {
           throw new Error(`EmailJS returned status: ${response.status}`);
         }
-      } catch (error) {
+      } catch (error: any) {
         console.error('EmailJS Error:', error);
-        // Show error message to user
+        // Show more detailed error message to user
         setFormErrors({
-          submit: "Failed to send your request. Please try again or contact us directly at 0687033774."
+          submit: `Failed to send your request: ${error.message || 'Unknown error'}. Please try again or contact us directly at 0687033774.`
         });
       } finally {
         setIsSubmitting(false);
@@ -291,7 +295,7 @@ export default function GetStartedPage() {
           <Link href="/">
             <Button variant="outline" className="flex items-center gap-2 border-blue-300 text-blue-500">
               <ArrowLeft className="h-4 w-4" />
-              Back to Home
+              {t("getStarted.goHome", "Back to Home")}
             </Button>
           </Link>
         </div>
@@ -301,36 +305,35 @@ export default function GetStartedPage() {
             <div className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
               <CheckCircle className="h-12 w-12 text-green-500" />
             </div>
-            <h1 className="text-3xl font-bold text-green-500 mb-4">Request Submitted Successfully!</h1>
+            <h1 className="text-3xl font-bold text-green-500 mb-4">{t("getStarted.requestSubmitted", "Request Submitted Successfully!")}</h1>
             <p className="text-lg text-gray-600 dark:text-gray-400 mb-8 max-w-lg mx-auto">
-              Thank you for your interest in our services. We've received your project request and will get back to you
-              within 24-48 hours.
+              {t("getStarted.requestSubmittedDesc", "Thank you for your interest in our services. We've received your project request and will get back to you within 24-48 hours.")}
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
               <div className="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-lg text-left">
                 <h3 className="font-medium text-lg mb-4 flex items-center">
                   <Clock className="mr-2 h-5 w-5 text-blue-500" />
-                  What happens next?
+                  {t("getStarted.whatHappensNext", "What happens next?")}
                 </h3>
                 <ul className="space-y-3">
                   <li className="flex items-start">
                     <div className="bg-blue-500 text-white rounded-full w-5 h-5 flex items-center justify-center mr-2 mt-0.5">
                       1
                     </div>
-                    <span>Our team will review your project requirements</span>
+                    <span>{t("getStarted.nextStep1", "Our team will review your project requirements")}</span>
                   </li>
                   <li className="flex items-start">
                     <div className="bg-blue-500 text-white rounded-full w-5 h-5 flex items-center justify-center mr-2 mt-0.5">
                       2
                     </div>
-                    <span>We'll contact you to discuss details and provide a quote</span>
+                    <span>{t("getStarted.nextStep2", "We'll contact you to discuss details and provide a quote")}</span>
                   </li>
                   <li className="flex items-start">
                     <div className="bg-blue-500 text-white rounded-full w-5 h-5 flex items-center justify-center mr-2 mt-0.5">
                       3
                     </div>
-                    <span>Once approved, we'll create a project timeline</span>
+                    <span>{t("getStarted.nextStep3", "Once approved, we'll create a project timeline")}</span>
                   </li>
                 </ul>
               </div>
@@ -338,9 +341,9 @@ export default function GetStartedPage() {
               <div className="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-lg text-left">
                 <h3 className="font-medium text-lg mb-4 flex items-center">
                   <Phone className="mr-2 h-5 w-5 text-blue-500" />
-                  Need immediate assistance?
+                  {t("getStarted.needImmediateAssistance", "Need immediate assistance?")}
                 </h3>
-                <p className="mb-4">Feel free to contact us directly:</p>
+                <p className="mb-4">{t("getStarted.contactDirectly", "Feel free to contact us directly:")}</p>
                 <div className="space-y-2">
                   <div className="flex items-center">
                     <Mail className="h-4 w-4 mr-2 text-blue-500" />
@@ -360,7 +363,7 @@ export default function GetStartedPage() {
 
             <div className="mt-8">
               <Link href="/">
-                <Button className="bg-blue-500 hover:bg-blue-600 text-white px-8">Return to Homepage</Button>
+                <Button className="bg-blue-500 hover:bg-blue-600 text-white px-8">{t("getStarted.returnToHomepage", "Return to Homepage")}</Button>
               </Link>
             </div>
           </div>
@@ -375,16 +378,16 @@ export default function GetStartedPage() {
         <Link href="/">
           <Button variant="outline" className="flex items-center gap-2 border-blue-300 text-blue-500">
             <Home className="h-4 w-4" />
-            Go Home
+            {t("getStarted.goHome", "Go Home")}
           </Button>
         </Link>
       </div>
 
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-12">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 text-blue-500">Get Started with EG Web Solutions</h1>
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 text-blue-500">{t("getStarted.title", "Get Started with EG Web Solutions")}</h1>
         <div className="w-24 h-1 bg-blue-400 mx-auto mb-6"></div>
         <p className="text-xl text-gray-700 dark:text-gray-300 max-w-2xl mx-auto">
-          Tell us about your project, and we'll help you bring your vision to life.
+          {t("getStarted.subtitle", "Tell us about your project, and we'll help you bring your vision to life.")}
         </p>
       </motion.div>
 
@@ -434,20 +437,20 @@ export default function GetStartedPage() {
                   className="w-full h-full object-contain"
                 />
               </div>
-              <h2 className="text-2xl font-bold mb-2">Tell us more about your project</h2>
+              <h2 className="text-2xl font-bold mb-2">{t("getStarted.tellUsMore", "Tell us more about your project")}</h2>
               <p className="text-gray-600 dark:text-gray-400">
-                Provide some details to help us understand your requirements
+                {t("getStarted.provideDetails", "Provide some details to help us understand your requirements")}
               </p>
             </div>
 
             <div className="space-y-6">
               <div>
                 <Label htmlFor="project-description" className="flex items-center">
-                  Project Description <span className="text-red-500 ml-1">*</span>
+                  {t("getStarted.projectDescription", "Project Description")} <span className="text-red-500 ml-1">*</span>
                 </Label>
                 <Textarea
                   id="project-description"
-                  placeholder="Describe your project, goals, and any specific requirements..."
+                  placeholder={t("getStarted.projectDescriptionPlaceholder", "Describe your project, goals, and any specific requirements...")}
                   className="mt-2 h-32"
                   value={formData.projectDetails.description}
                   onChange={(e) => handleProjectDetailsChange("description", e.target.value)}
@@ -457,7 +460,7 @@ export default function GetStartedPage() {
 
               <div>
                 <Label className="flex items-center">
-                  When do you need this completed? <span className="text-red-500 ml-1">*</span>
+                  {t("getStarted.timeline", "When do you need this completed?")} <span className="text-red-500 ml-1">*</span>
                 </Label>
                 <TimelineSelector
                   options={timelineOptions}
@@ -469,7 +472,7 @@ export default function GetStartedPage() {
               </div>
 
               <div>
-                <Label htmlFor="file-upload">Upload Reference Materials (Optional)</Label>
+                <Label htmlFor="file-upload">{t("getStarted.uploadReference", "Upload Reference Materials (Optional)")}</Label>
                 <div className="mt-2 flex items-center justify-center w-full">
                   <label
                     htmlFor="file-upload"
@@ -478,9 +481,9 @@ export default function GetStartedPage() {
                     <div className="flex flex-col items-center justify-center pt-5 pb-6">
                       <Upload className="w-8 h-8 mb-3 text-gray-400" />
                       <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                        <span className="font-semibold">Click to upload</span> or drag and drop
+                        <span className="font-semibold">{t("getStarted.uploadInstructions", "Click to upload")}</span> {t("getStarted.uploadOrDrag", "or drag and drop")}
                       </p>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">PDF, PNG, JPG or DOCX (MAX. 10MB)</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">{t("getStarted.uploadFormats", "PDF, PNG, JPG or DOCX (MAX. 10MB)")}</p>
                     </div>
                     <input
                       id="file-upload"
@@ -522,18 +525,18 @@ export default function GetStartedPage() {
                   className="w-full h-full object-contain"
                 />
               </div>
-              <h2 className="text-2xl font-bold mb-2">Your Contact Information</h2>
-              <p className="text-gray-600 dark:text-gray-400">Let us know how to reach you</p>
+              <h2 className="text-2xl font-bold mb-2">{t("getStarted.yourContactInfo", "Your Contact Information")}</h2>
+              <p className="text-gray-600 dark:text-gray-400">{t("getStarted.letUsKnowHowToReach", "Let us know how to reach you")}</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <Label htmlFor="name" className="flex items-center">
-                  Full Name <span className="text-red-500 ml-1">*</span>
+                  {t("getStarted.fullName", "Full Name")} <span className="text-red-500 ml-1">*</span>
                 </Label>
                 <Input
                   id="name"
-                  placeholder="John Doe"
+                  placeholder={t("getStarted.fullNamePlaceholder", "John Doe")}
                   className="mt-2"
                   value={formData.name}
                   onChange={(e) => updateFormData({ name: e.target.value })}
@@ -543,12 +546,12 @@ export default function GetStartedPage() {
 
               <div>
                 <Label htmlFor="email" className="flex items-center">
-                  Email Address <span className="text-red-500 ml-1">*</span>
+                  {t("getStarted.emailAddress", "Email Address")} <span className="text-red-500 ml-1">*</span>
                 </Label>
                 <Input
                   id="email"
                   type="email"
-                  placeholder="john@example.com"
+                  placeholder={t("getStarted.emailAddressPlaceholder", "john@example.com")}
                   className="mt-2"
                   value={formData.email}
                   onChange={(e) => updateFormData({ email: e.target.value })}
@@ -557,10 +560,10 @@ export default function GetStartedPage() {
               </div>
 
               <div>
-                <Label htmlFor="phone">Phone Number</Label>
+                <Label htmlFor="phone">{t("getStarted.phoneNumber", "Phone Number")}</Label>
                 <Input
                   id="phone"
-                  placeholder="+1 (555) 123-4567"
+                  placeholder={t("getStarted.phoneNumberPlaceholder", "+1 (555) 123-4567")}
                   className="mt-2"
                   value={formData.phone}
                   onChange={(e) => updateFormData({ phone: e.target.value })}
@@ -568,10 +571,10 @@ export default function GetStartedPage() {
               </div>
 
               <div>
-                <Label htmlFor="company">Company Name</Label>
+                <Label htmlFor="company">{t("getStarted.companyName", "Company Name")}</Label>
                 <Input
                   id="company"
-                  placeholder="Company Inc."
+                  placeholder={t("getStarted.companyNamePlaceholder", "Company Inc.")}
                   className="mt-2"
                   value={formData.company}
                   onChange={(e) => updateFormData({ company: e.target.value })}
@@ -579,10 +582,10 @@ export default function GetStartedPage() {
               </div>
 
               <div className="md:col-span-2">
-                <Label htmlFor="message">Additional Information</Label>
+                <Label htmlFor="message">{t("getStarted.additionalInfo", "Additional Information")}</Label>
                 <Textarea
                   id="message"
-                  placeholder="Any other details you'd like to share..."
+                  placeholder={t("getStarted.additionalInfoPlaceholder", "Any other details you'd like to share...")}
                   className="mt-2"
                   value={formData.message}
                   onChange={(e) => updateFormData({ message: e.target.value })}
@@ -600,10 +603,10 @@ export default function GetStartedPage() {
                     htmlFor="subscribe"
                     className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                   >
-                    Subscribe to our newsletter
+                    {t("footer.newsletter", "Subscribe to our newsletter")}
                   </label>
                   <p className="text-sm text-gray-500 dark:text-gray-400">
-                    Get updates on our services and industry insights
+                    {t("footer.companyDescription", "Get updates on our services and industry insights")}
                   </p>
                 </div>
               </div>
@@ -621,29 +624,29 @@ export default function GetStartedPage() {
                   className="w-full h-full object-contain"
                 />
               </div>
-              <h2 className="text-2xl font-bold mb-2">Review Your Information</h2>
-              <p className="text-gray-600 dark:text-gray-400">Please review your information before submitting</p>
+              <h2 className="text-2xl font-bold mb-2">{t("getStarted.reviewYourInfo", "Review Your Information")}</h2>
+              <p className="text-gray-600 dark:text-gray-400">{t("getStarted.reviewInfoDesc", "Please review your information before submitting")}</p>
             </div>
 
             <div className="space-y-6">
               <div className="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-lg">
                 <h3 className="font-medium text-lg mb-4 flex items-center">
                   <FileText className="mr-2 h-5 w-5 text-blue-500" />
-                  Project Details
+                  {t("getStarted.projectDetails", "Project Details")}
                 </h3>
 
                 <div className="space-y-3">
                   <div className="flex justify-between">
                     <span className="text-gray-600 dark:text-gray-400">Project Type:</span>
                     <span className="font-medium">
-                      {projectTypes.find((t) => t.id === formData.projectType)?.title || "Not specified"}
+                      {projectTypes.find((t) => t.id === formData.projectType)?.title || t("getStarted.notProvided", "Not specified")}
                     </span>
                   </div>
 
                   <div className="flex justify-between">
                     <span className="text-gray-600 dark:text-gray-400">Timeline:</span>
                     <span className="font-medium">
-                      {timelineOptions.find((t) => t.value === formData.timeline)?.label || "Not specified"}
+                      {timelineOptions.find((t) => t.value === formData.timeline)?.label || t("getStarted.notProvided", "Not specified")}
                     </span>
                   </div>
 
@@ -665,28 +668,28 @@ export default function GetStartedPage() {
               <div className="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-lg">
                 <h3 className="font-medium text-lg mb-4 flex items-center">
                   <Users className="mr-2 h-5 w-5 text-blue-500" />
-                  Contact Information
+                  {t("getStarted.contactInfo", "Contact Information")}
                 </h3>
 
                 <div className="space-y-3">
                   <div className="flex justify-between">
                     <span className="text-gray-600 dark:text-gray-400">Name:</span>
-                    <span className="font-medium">{formData.name || "Not provided"}</span>
+                    <span className="font-medium">{formData.name || t("getStarted.notProvided", "Not provided")}</span>
                   </div>
 
                   <div className="flex justify-between">
                     <span className="text-gray-600 dark:text-gray-400">Email:</span>
-                    <span className="font-medium">{formData.email || "Not provided"}</span>
+                    <span className="font-medium">{formData.email || t("getStarted.notProvided", "Not provided")}</span>
                   </div>
 
                   <div className="flex justify-between">
                     <span className="text-gray-600 dark:text-gray-400">Phone:</span>
-                    <span className="font-medium">{formData.phone || "Not provided"}</span>
+                    <span className="font-medium">{formData.phone || t("getStarted.notProvided", "Not provided")}</span>
                   </div>
 
                   <div className="flex justify-between">
                     <span className="text-gray-600 dark:text-gray-400">Company:</span>
-                    <span className="font-medium">{formData.company || "Not provided"}</span>
+                    <span className="font-medium">{formData.company || t("getStarted.notProvided", "Not provided")}</span>
                   </div>
                 </div>
               </div>
@@ -698,7 +701,7 @@ export default function GetStartedPage() {
                 onClick={() => updateFormData({ projectType: "" })}
                 className="border-blue-300 text-blue-500"
               >
-                Start Over
+                {t("getStarted.startOver", "Start Over")}
               </Button>
 
               <Button
@@ -709,12 +712,12 @@ export default function GetStartedPage() {
                 {isSubmitting ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Submitting...
+                    {t("getStarted.submitting", "Submitting...")}
                   </>
                 ) : (
                   <>
                     <Send className="mr-2 h-4 w-4" />
-                    Submit Request
+                    {t("getStarted.submitRequest", "Submit Request")}
                   </>
                 )}
               </Button>

@@ -57,17 +57,86 @@ export default function Home() {
   const { scrollY } = useScroll()
   const headerOpacity = useTransform(scrollY, [0, 100], [1, 0.8])
   const headerBlur = useTransform(scrollY, [0, 100], [0, 8])
-  const { t } = useLanguage()
+  const { t, currentLanguage } = useLanguage()
 
-  const heroRef = useRef<HTMLDivElement | null>(null)
-  const servicesRef = useRef<HTMLDivElement | null>(null)
-  const portfolioRef = useRef<HTMLDivElement | null>(null)
-  const contactRef = useRef<HTMLDivElement | null>(null)
+  const heroRef = useRef<HTMLDivElement>(null)
+  const servicesRef = useRef<HTMLDivElement>(null)
+  const portfolioRef = useRef<HTMLDivElement>(null)
+  const contactRef = useRef<HTMLDivElement>(null)
 
   const [dots, setDots] = useState<Dot[]>([])
   useEffect(() => {
     setDots(getRandomDots(20))
   }, [])
+
+  // Translation keys for the page
+  const translations = {
+    offlineMessage: currentLanguage === "en" ? "You are currently offline. Some features may be limited." : "U bent momenteel offline. Sommige functies kunnen beperkt zijn.",
+    premiumBadge: currentLanguage === "en" ? "Premium Web Development & Design" : "Premium Webontwikkeling & Design",
+    heroTitle1: currentLanguage === "en" ? "Transform Your" : "Transformeer uw",
+    heroTitle2: currentLanguage === "en" ? "Digital Presence" : "Digitale Aanwezigheid",
+    heroSubtitle: currentLanguage === "en" 
+      ? "We craft sophisticated digital experiences that blend elegance with functionality, helping your business stand out in today's competitive landscape."
+      : "Wij creëren verfijnde digitale ervaringen die elegantie combineren met functionaliteit, waardoor uw bedrijf zich onderscheidt in het huidige competitieve landschap.",
+    features: {
+      customDev: currentLanguage === "en" ? "Custom Web Development" : "Aangepaste Webontwikkeling",
+      uiux: currentLanguage === "en" ? "Stunning UI/UX Design" : "Prachtig UI/UX Design",
+      ecommerce: currentLanguage === "en" ? "E-commerce Solutions" : "E-commerce Oplossingen",
+      secure: currentLanguage === "en" ? "Secure & Scalable Applications" : "Veilige & Schaalbare Applicaties"
+    },
+    viewWork: currentLanguage === "en" ? "View Our Work" : "Bekijk ons werk",
+    stats: {
+      projects: currentLanguage === "en" ? "Projects Completed" : "Projecten Voltooid",
+      satisfaction: currentLanguage === "en" ? "Client Satisfaction" : "Klanttevredenheid",
+      experience: currentLanguage === "en" ? "Years Experience" : "Jaar Ervaring"
+    },
+    exploreServices: currentLanguage === "en" ? "Explore Our Services" : "Ontdek onze diensten",
+    trustedBy: currentLanguage === "en" ? "Trusted by:" : "Vertrouwd door:",
+    services: {
+      webApp: {
+        title: currentLanguage === "en" ? "Web App Development" : "Web App Ontwikkeling",
+        description: currentLanguage === "en" 
+          ? "Scalable, user-friendly web applications tailored for businesses and startups."
+          : "Schaalbare, gebruiksvriendelijke webapplicaties op maat voor bedrijven en startups."
+      },
+      promoVideos: {
+        title: currentLanguage === "en" ? "Promo Videos & Ads" : "Promo Video's & Advertenties",
+        description: currentLanguage === "en"
+          ? "Engaging video ads, motion graphics, and promotional content."
+          : "Boeiende video-advertenties, motion graphics en promotionele content."
+      },
+      graphicDesign: {
+        title: currentLanguage === "en" ? "Graphic Design & Branding" : "Grafisch Ontwerp & Branding",
+        description: currentLanguage === "en"
+          ? "Custom logos, posters, and marketing materials designed to make an impact."
+          : "Aangepaste logo's, posters en marketingmateriaal ontworpen om indruk te maken."
+      },
+      maintenance: {
+        title: currentLanguage === "en" ? "Website Maintenance & SEO" : "Website Onderhoud & SEO",
+        description: currentLanguage === "en"
+          ? "Ongoing support, performance optimization, and SEO strategies."
+          : "Doorlopende ondersteuning, prestatieoptimalisatie en SEO-strategieën."
+      },
+      ecommerce: {
+        title: currentLanguage === "en" ? "E-commerce Platform" : "E-commerce Platform",
+        description: currentLanguage === "en"
+          ? "Full-featured online shopping experience with product management and secure payments."
+          : "Volledig uitgeruste online winkelervaring met productbeheer en veilige betalingen."
+      },
+      healthcare: {
+        title: currentLanguage === "en" ? "Healthcare Portal" : "Gezondheidszorg Portal",
+        description: currentLanguage === "en"
+          ? "Comprehensive medical services platform for patient management and appointments."
+          : "Uitgebreid medisch dienstenplatform voor patiëntbeheer en afspraken."
+      },
+      dating: {
+        title: currentLanguage === "en" ? "Habesha Dating Site" : "Habesha Dating Site",
+        description: currentLanguage === "en"
+          ? "A specialized dating platform for the Habesha community."
+          : "Een gespecialiseerd datingsplatform voor de Habesha-gemeenschap."
+      }
+    }
+  };
 
   // Check online status
   useEffect(() => {
@@ -92,52 +161,52 @@ export default function Home() {
 
   const services = [
     {
-      title: "Web App Development",
-      description: "Scalable, user-friendly web applications tailored for businesses and startups.",
+      title: translations.services.webApp.title,
+      description: translations.services.webApp.description,
       icon: <Code className="h-8 w-8" />,
       lottie: "https://lottie.host/a42aaad4-716b-4590-8958-0ffd75794a1d/IrvfxZE4m1.lottie",
       animationType: "pulse",
     },
     {
-      title: "Promo Videos & Ads",
-      description: "Engaging video ads, motion graphics, and promotional content.",
+      title: translations.services.promoVideos.title,
+      description: translations.services.promoVideos.description,
       icon: <Film className="h-8 w-8" />,
       lottie: "https://lottie.host/d9212ce8-80f3-431e-8354-5e2363dc12db/lUfzG8vxEw.lottie",
       animationType: "rotate",
     },
     {
-      title: "Graphic Design & Branding",
-      description: "Custom logos, posters, and marketing materials designed to make an impact.",
+      title: translations.services.graphicDesign.title,
+      description: translations.services.graphicDesign.description,
       icon: <Paintbrush className="h-8 w-8" />,
       lottie: "https://lottie.host/6d3df4a3-2a6d-4c41-a25a-6996a24808a5/AeEpQexKnZ.lottie",
       animationType: "wiggle",
     },
     {
-      title: "Website Maintenance & SEO",
-      description: "Ongoing support, performance optimization, and SEO strategies.",
+      title: translations.services.maintenance.title,
+      description: translations.services.maintenance.description,
       icon: <Search className="h-8 w-8" />,
       lottie: "https://lottie.host/3672bb16-4e52-4717-b146-3d2f19d3580d/mzl8pGehuc.lottie",
       animationType: "bounce",
     },
     {
-      title: "E-commerce Platform",
-      description: "Full-featured online shopping experience with product management and secure payments.",
+      title: translations.services.ecommerce.title,
+      description: translations.services.ecommerce.description,
       icon: <ShoppingCart className="h-8 w-8" />,
       lottie: "https://lottie.host/82f97e70-8d74-41ca-9f0f-de41290bb313/FSVeesLf73.lottie",
       animationType: "scale",
       status: "In Development",
     },
     {
-      title: "Healthcare Portal",
-      description: "Comprehensive medical services platform for patient management and appointments.",
+      title: translations.services.healthcare.title,
+      description: translations.services.healthcare.description,
       icon: <Stethoscope className="h-8 w-8" />,
       lottie: "https://lottie.host/44fcef0a-90b6-477f-a90c-ef5f13f5758b/rnLXYMd9Vw.lottie",
       animationType: "pulse",
       status: "In Development",
     },
     {
-      title: "Habesha Dating Site",
-      description: "A specialized dating platform for the Habesha community.",
+      title: translations.services.dating.title,
+      description: translations.services.dating.description,
       icon: <Heart className="h-8 w-8" />,
       lottie: "https://lottie.host/4371091d-c4cc-4f7b-b980-b85555c40ffa/KiMUP8JjIs.lottie",
       animationType: "bounce",
@@ -159,7 +228,7 @@ export default function Home() {
       {/* Offline notification */}
       {!isOnline && (
         <div className="fixed top-0 left-0 right-0 bg-amber-500 text-white p-2 text-center z-50">
-          You are currently offline. Some features may be limited.
+          {translations.offlineMessage}
         </div>
       )}
 
@@ -215,7 +284,7 @@ export default function Home() {
                   transition={{ delay: 0.2, duration: 0.5 }}
                 >
                   <Badge className="mb-6 bg-blue-100 text-blue-700 hover:bg-blue-200 px-3 py-1 text-sm rounded-full">
-                    Premium Web Development & Design
+                    {translations.premiumBadge}
                   </Badge>
                 </motion.div>
 
@@ -227,7 +296,7 @@ export default function Home() {
                     transition={{ duration: 0.5 }}
                     className="block"
                   >
-                    Transform Your
+                    {translations.heroTitle1}
                   </motion.span>
                   <motion.span
                     initial={{ opacity: 0 }}
@@ -235,7 +304,7 @@ export default function Home() {
                     transition={{ delay: 0.3, duration: 0.5 }}
                     className="block text-blue-500"
                   >
-                    Digital Presence
+                    {translations.heroTitle2}
                   </motion.span>
                 </h1>
 
@@ -254,8 +323,7 @@ export default function Home() {
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.7, duration: 0.5 }}
                 >
-                  We craft sophisticated digital experiences that blend elegance with functionality, helping your
-                  business stand out in today's competitive landscape.
+                  {translations.heroSubtitle}
                 </motion.p>
 
                 {/* Feature list */}
@@ -266,10 +334,10 @@ export default function Home() {
                   transition={{ delay: 0.9, duration: 0.5 }}
                 >
                   {[
-                    { icon: <Code className="h-4 w-4" />, text: "Custom Web Development" },
-                    { icon: <Paintbrush className="h-4 w-4" />, text: "Stunning UI/UX Design" },
-                    { icon: <Globe className="h-4 w-4" />, text: "E-commerce Solutions" },
-                    { icon: <Shield className="h-4 w-4" />, text: "Secure & Scalable Applications" },
+                    { icon: <Code className="h-4 w-4" />, text: translations.features.customDev },
+                    { icon: <Paintbrush className="h-4 w-4" />, text: translations.features.uiux },
+                    { icon: <Globe className="h-4 w-4" />, text: translations.features.ecommerce },
+                    { icon: <Shield className="h-4 w-4" />, text: translations.features.secure },
                   ].map((feature, index) => (
                     <motion.div
                       key={index}
@@ -309,7 +377,7 @@ export default function Home() {
                       variant="outline"
                       className="px-8 py-3 rounded-full border-blue-300 text-blue-600 hover:bg-blue-50"
                     >
-                      View Our Work
+                      {translations.viewWork}
                     </Button>
                   </Link>
                 </motion.div>
@@ -322,9 +390,9 @@ export default function Home() {
                   transition={{ delay: 1.5, duration: 0.5 }}
                 >
                   {[
-                    { value: "50+", label: "Projects Completed" },
-                    { value: "98%", label: "Client Satisfaction" },
-                    { value: "5+", label: "Years Experience" },
+                    { value: "50+", label: translations.stats.projects },
+                    { value: "98%", label: translations.stats.satisfaction },
+                    { value: "5+", label: translations.stats.experience },
                   ].map((stat, index) => (
                     <div key={index} className="text-center">
                       <div className="text-2xl font-bold text-blue-600">{stat.value}</div>
@@ -381,7 +449,7 @@ export default function Home() {
               y: { delay: 2, duration: 1.5, repeat: Number.POSITIVE_INFINITY },
             }}
           >
-            <span className="text-sm text-blue-600 mb-2">Explore Our Services</span>
+            <span className="text-sm text-blue-600 mb-2">{translations.exploreServices}</span>
             <ChevronDown className="h-6 w-6 text-blue-500" />
           </motion.div>
         </div>
@@ -395,7 +463,7 @@ export default function Home() {
         >
           <div className="container mx-auto px-4">
             <div className="flex flex-col md:flex-row items-center justify-between">
-              <p className="text-gray-600 font-medium mb-4 md:mb-0">Trusted by:</p>
+              <p className="text-gray-600 font-medium mb-4 md:mb-0">{translations.trustedBy}</p>
               <div className="flex flex-wrap justify-center gap-8">
                 {clientLogos.map((client, index) => (
                   <motion.div
@@ -495,10 +563,10 @@ export default function Home() {
             transition={{ duration: 0.5 }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-blue-500">{t("nav.contact", "Get in Touch")}</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-blue-500">{t("contact.title", "Get in Touch")}</h2>
             <div className="w-24 h-1 bg-blue-400 mx-auto mb-6"></div>
             <p className="text-xl text-gray-700 max-w-2xl mx-auto">
-              Ready to elevate your digital presence? Contact us today to discuss your project.
+              {t("contact.subtitle", "Ready to elevate your digital presence? Contact us today to discuss your project.")}
             </p>
           </motion.div>
 
@@ -510,7 +578,7 @@ export default function Home() {
               transition={{ duration: 0.5 }}
             >
               <div className="bg-blue-50 rounded-2xl p-8 border border-blue-100">
-                <h3 className="text-2xl font-bold mb-6 text-blue-600">Contact Information</h3>
+                <h3 className="text-2xl font-bold mb-6 text-blue-600">{t("contact.info", "Contact Information")}</h3>
 
                 <div className="space-y-6">
                   <div className="flex items-start">
@@ -518,13 +586,9 @@ export default function Home() {
                       <MapPin className="h-5 w-5" />
                     </AnimatedIcon>
                     <div className="ml-4">
-                      <h4 className="font-medium">Office Location</h4>
+                      <h4 className="font-medium">{t("contact.officeLocation", "Office Location")}</h4>
                       <p className="text-gray-600 mt-1">
-                        YSM Web Office
-                        <br />
-                        Shared with Yohannes Hoveniersbedrijf
-                        <br />
-                        Zweedsestraat 8a, 16, 7418 BG Deventer
+                        {t("contact.address", `YSM Web Office\nShared with Yohannes Hoveniersbedrijf\nZweedsestraat 8a, 16, 7418 BG Deventer`)}
                       </p>
                     </div>
                   </div>
@@ -534,7 +598,7 @@ export default function Home() {
                       <Mail className="h-5 w-5" />
                     </AnimatedIcon>
                     <div className="ml-4">
-                      <h4 className="font-medium">Email</h4>
+                      <h4 className="font-medium">{t("contact.email", "Email")}</h4>
                       <p className="text-gray-600 mt-1">info@ysmweb.com</p>
                     </div>
                   </div>
@@ -544,11 +608,9 @@ export default function Home() {
                       <Clock className="h-5 w-5" />
                     </AnimatedIcon>
                     <div className="ml-4">
-                      <h4 className="font-medium">Working Hours</h4>
+                      <h4 className="font-medium">{t("contact.workingHours", "Working Hours")}</h4>
                       <p className="text-gray-600 mt-1">
-                        Monday - Friday: 9:00 - 18:00
-                        <br />
-                        Weekend: By appointment
+                        {t("contact.workingHoursValue", "Monday - Friday: 9:00 - 18:00\nWeekend: By appointment")}
                       </p>
                     </div>
                   </div>
@@ -570,55 +632,55 @@ export default function Home() {
               transition={{ duration: 0.5 }}
             >
               <div className="bg-blue-50 rounded-2xl p-8 border border-blue-100">
-                <h3 className="text-2xl font-bold mb-6 text-blue-600">Send Us a Message</h3>
+                <h3 className="text-2xl font-bold mb-6 text-blue-600">{t("contact.form.sendUsMessage", "Send Us a Message")}</h3>
 
                 <form className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                       <label htmlFor="name" className="block text-sm font-medium mb-2">
-                        Name
+                        {t("contact.form.name", "Name")}
                       </label>
                       <input
                         type="text"
                         id="name"
                         className="w-full px-4 py-3 rounded-lg border border-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-300 transition-all duration-200"
-                        placeholder="Your name"
+                        placeholder={t("contact.form.namePlaceholder", "Your name")}
                       />
                     </div>
                     <div>
                       <label htmlFor="email" className="block text-sm font-medium mb-2">
-                        Email
+                        {t("contact.form.email", "Email")}
                       </label>
                       <input
                         type="email"
                         id="email"
                         className="w-full px-4 py-3 rounded-lg border border-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-300 transition-all duration-200"
-                        placeholder="Your email"
+                        placeholder={t("contact.form.emailPlaceholder", "Your email")}
                       />
                     </div>
                   </div>
 
                   <div>
                     <label htmlFor="subject" className="block text-sm font-medium mb-2">
-                      Subject
+                      {t("contact.form.subject", "Subject")}
                     </label>
                     <input
                       type="text"
                       id="subject"
                       className="w-full px-4 py-3 rounded-lg border border-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-300 transition-all duration-200"
-                      placeholder="Subject"
+                      placeholder={t("contact.form.subjectPlaceholder", "Subject")}
                     />
                   </div>
 
                   <div>
                     <label htmlFor="message" className="block text-sm font-medium mb-2">
-                      Message
+                      {t("contact.form.message", "Message")}
                     </label>
                     <textarea
                       id="message"
                       rows={5}
                       className="w-full px-4 py-3 rounded-lg border border-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-300 transition-all duration-200"
-                      placeholder="Your message"
+                      placeholder={t("contact.form.messagePlaceholder", "Your message")}
                     />
                   </div>
 
@@ -627,7 +689,7 @@ export default function Home() {
                     size="lg"
                     className="w-full bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-full"
                   >
-                    Send Message
+                    {t("contact.form.sendMessage", "Send Message")}
                   </Button>
                 </form>
               </div>

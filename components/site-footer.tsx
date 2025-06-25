@@ -50,28 +50,54 @@ export default function SiteFooter({ className }: SiteFooterProps) {
     console.log(`Language changed to: ${langCode}`)
   }
 
-  const footerLinks = [
-    { title: "About Us", href: "/about" },
-    { title: "Services", href: "/#services" },
-    { title: "Portfolio", href: "/#portfolio" },
-    { title: "Contact", href: "/#contact" },
-    { title: "Privacy Policy", href: "/privacy-policy" },
-    { title: "Terms of Service", href: "/terms" },
+  const languages = [
+    { code: "en", name: "English", flag: "🇺🇸" },
+    { code: "nl", name: "Nederlands", flag: "🇳🇱" },
   ]
+
+  const footerLinks = [
+    { 
+      title: currentLanguage === "en" ? "About Us" : "Over ons", 
+      href: "/about" 
+    },
+    { 
+      title: currentLanguage === "en" ? "Services" : "Diensten", 
+      href: "/#services" 
+    },
+    { 
+      title: currentLanguage === "en" ? "Portfolio" : "Portfolio", 
+      href: "/#portfolio" 
+    },
+    { 
+      title: currentLanguage === "en" ? "Contact" : "Contact", 
+      href: "/#contact" 
+    },
+    { 
+      title: currentLanguage === "en" ? "Privacy Policy" : "Privacybeleid", 
+      href: "/privacy-policy" 
+    },
+    { 
+      title: currentLanguage === "en" ? "Terms of Service" : "Servicevoorwaarden", 
+      href: "/terms" 
+    },
+  ]
+
+  const newsletterText = {
+    title: currentLanguage === "en" ? "Subscribe to Our Newsletter" : "Schrijf je in voor onze nieuwsbrief",
+    placeholder: currentLanguage === "en" ? "Enter your email" : "Vul je e-mailadres in",
+    button: currentLanguage === "en" ? "Subscribe" : "Inschrijven",
+    success: currentLanguage === "en" ? "Thank you for subscribing!" : "Bedankt voor je inschrijving!",
+  };
+
+  const companyDescription = currentLanguage === "en" 
+    ? "Dream It, We Build It: Empowering Your Digital Dominance with premium web development and design services."
+    : "Droom het, Wij bouwen het: Versterk uw digitale aanwezigheid met premium webontwikkeling en design diensten.";
 
   const socialLinks = [
     { icon: <Facebook className="h-5 w-5" />, href: "https://facebook.com", label: "Facebook" },
     { icon: <Twitter className="h-5 w-5" />, href: "https://twitter.com", label: "Twitter" },
     { icon: <Instagram className="h-5 w-5" />, href: "https://instagram.com", label: "Instagram" },
     { icon: <Linkedin className="h-5 w-5" />, href: "https://linkedin.com", label: "LinkedIn" },
-  ]
-
-  const languages = [
-    { code: "en", name: "English", flag: "🇺🇸" },
-    { code: "es", name: "Español", flag: "🇪🇸" },
-    { code: "fr", name: "Français", flag: "🇫🇷" },
-    { code: "de", name: "Deutsch", flag: "🇩🇪" },
-    { code: "nl", name: "Nederlands", flag: "🇳🇱" },
   ]
 
   return (
@@ -82,7 +108,7 @@ export default function SiteFooter({ className }: SiteFooterProps) {
           <div className="space-y-4">
             <EGLogo variant="light" size="md" />
             <p className="text-blue-200 max-w-xs">
-              Dream It, We Build It: Empowering Your Digital Dominance with premium web development and design services.
+              {companyDescription}
             </p>
             <div className="flex space-x-3">
               {socialLinks.map((social, index) => (
@@ -139,13 +165,13 @@ export default function SiteFooter({ className }: SiteFooterProps) {
           {/* Newsletter */}
           <div>
             <h3 className="text-lg font-bold mb-4 border-b border-blue-800 pb-2">Newsletter</h3>
-            <p className="text-blue-200 mb-4">Subscribe to our newsletter for the latest updates and insights.</p>
+            <p className="text-blue-200 mb-4">{newsletterText.title}</p>
             <form onSubmit={handleSubscribe} className="space-y-3">
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-300 h-5 w-5" />
                 <Input
                   type="email"
-                  placeholder="Your email address"
+                  placeholder={newsletterText.placeholder}
                   className="pl-10 bg-blue-800/50 border-blue-700 text-white placeholder:text-blue-300 focus:border-blue-500"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -185,22 +211,13 @@ export default function SiteFooter({ className }: SiteFooterProps) {
                 ) : isSubscribed ? (
                   <span className="flex items-center">
                     <Check className="mr-2 h-4 w-4" />
-                    Subscribed!
+                    {newsletterText.success}
                   </span>
                 ) : (
-                  "Subscribe"
+                  newsletterText.button
                 )}
               </Button>
             </form>
-            {isSubscribed && (
-              <motion.p
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="text-green-400 text-sm mt-2"
-              >
-                Thank you for subscribing!
-              </motion.p>
-            )}
           </div>
         </div>
 

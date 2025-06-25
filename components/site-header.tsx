@@ -27,7 +27,7 @@ export default function SiteHeader() {
   const [hoveredDropdown, setHoveredDropdown] = useState<string | null>(null)
   const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   const pathname = usePathname()
-  const { currentLanguage } = useLanguage()
+  const { currentLanguage, t } = useLanguage()
   const [isMobile, setIsMobile] = useState(false)
 
   // Check if device is mobile on mount and window resize
@@ -49,84 +49,45 @@ export default function SiteHeader() {
   // Navigation items with translations and icons
   const navItems: NavItem[] = [
     {
-      label:
-        currentLanguage === "en"
-          ? "Home"
-          : currentLanguage === "es"
-            ? "Inicio"
-            : currentLanguage === "fr"
-              ? "Accueil"
-              : currentLanguage === "de"
-                ? "Startseite"
-                : currentLanguage === "nl"
-                  ? "Home"
-                  : "Home",
+      label: currentLanguage === "en" ? "Home" : "Home",
       href: "/",
     },
     {
-      label:
-        currentLanguage === "en"
-          ? "Services"
-          : currentLanguage === "es"
-            ? "Servicios"
-            : currentLanguage === "fr"
-              ? "Services"
-              : currentLanguage === "de"
-                ? "Dienstleistungen"
-                : currentLanguage === "nl"
-                  ? "Diensten"
-                  : "Services",
+      label: currentLanguage === "en" ? "Services" : "Diensten",
       href: "/#services",
       children: [
-        { label: "Web Development", href: "/web-development", icon: <Code className="h-4 w-4" /> },
-        { label: "Design & Branding", href: "/design", icon: <Palette className="h-4 w-4" /> },
-        { label: "E-commerce", href: "/ecommerce", icon: <ShoppingCart className="h-4 w-4" /> },
-        { label: "SEO & Marketing", href: "/seo", icon: <Search className="h-4 w-4" /> },
+        { 
+          label: currentLanguage === "en" ? "Web Development" : "Webontwikkeling", 
+          href: "/web-development", 
+          icon: <Code className="h-4 w-4" /> 
+        },
+        { 
+          label: currentLanguage === "en" ? "Design & Branding" : "Design & Branding", 
+          href: "/design", 
+          icon: <Palette className="h-4 w-4" /> 
+        },
+        { 
+          label: currentLanguage === "en" ? "E-commerce" : "E-commerce", 
+          href: "/ecommerce", 
+          icon: <ShoppingCart className="h-4 w-4" /> 
+        },
+        { 
+          label: currentLanguage === "en" ? "SEO & Marketing" : "SEO & Marketing", 
+          href: "/seo", 
+          icon: <Search className="h-4 w-4" /> 
+        },
       ],
     },
     {
-      label:
-        currentLanguage === "en"
-          ? "Portfolio"
-          : currentLanguage === "es"
-            ? "Portafolio"
-            : currentLanguage === "fr"
-              ? "Portfolio"
-              : currentLanguage === "de"
-                ? "Portfolio"
-                : currentLanguage === "nl"
-                  ? "Portfolio"
-                  : "Portfolio",
+      label: currentLanguage === "en" ? "Portfolio" : "Portfolio",
       href: "/#portfolio",
     },
     {
-      label:
-        currentLanguage === "en"
-          ? "About"
-          : currentLanguage === "es"
-            ? "Nosotros"
-            : currentLanguage === "fr"
-              ? "À propos"
-              : currentLanguage === "de"
-                ? "Über uns"
-                : currentLanguage === "nl"
-                  ? "Over ons"
-                  : "About",
+      label: currentLanguage === "en" ? "About" : "Over ons",
       href: "/about",
     },
     {
-      label:
-        currentLanguage === "en"
-          ? "Contact"
-          : currentLanguage === "es"
-            ? "Contacto"
-            : currentLanguage === "fr"
-              ? "Contact"
-              : currentLanguage === "de"
-                ? "Kontakt"
-                : currentLanguage === "nl"
-                  ? "Contact"
-                  : "Contact",
+      label: currentLanguage === "en" ? "Contact" : "Contact",
       href: "/#contact",
     },
   ]
@@ -457,17 +418,7 @@ export default function SiteHeader() {
             <LanguageSelector variant="header" />
             <Link href="/get-started">
               <Button className="bg-blue-500 hover:bg-blue-600 text-white">
-                {currentLanguage === "en"
-                  ? "Get Started"
-                  : currentLanguage === "es"
-                    ? "Comenzar"
-                    : currentLanguage === "fr"
-                      ? "Commencer"
-                      : currentLanguage === "de"
-                        ? "Loslegen"
-                        : currentLanguage === "nl"
-                          ? "Beginnen"
-                          : "Get Started"}
+                {t("getStarted.title", "Get Started")}
               </Button>
             </Link>
           </div>
@@ -635,17 +586,7 @@ export default function SiteHeader() {
                 <div className="pt-4">
                   <Link href="/get-started" className="w-full">
                     <Button className="w-full bg-blue-500 hover:bg-blue-600 text-white py-6 text-base">
-                      {currentLanguage === "en"
-                        ? "Get Started"
-                        : currentLanguage === "es"
-                          ? "Comenzar"
-                          : currentLanguage === "fr"
-                            ? "Commencer"
-                            : currentLanguage === "de"
-                              ? "Loslegen"
-                              : currentLanguage === "nl"
-                                ? "Beginnen"
-                                : "Get Started"}
+                      {t("getStarted.title", "Get Started")}
                     </Button>
                   </Link>
                 </div>

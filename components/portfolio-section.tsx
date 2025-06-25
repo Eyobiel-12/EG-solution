@@ -14,6 +14,7 @@ import ProjectTimeline from "@/components/project-timeline"
 import DetailedRoadmap from "@/components/detailed-roadmap"
 import TechIcon from "@/components/tech-icon"
 import TechStackDisplay from "@/components/tech-stack-display"
+import { useLanguage } from "@/components/language-context"
 
 interface Project {
   id: string
@@ -44,17 +45,15 @@ export default function PortfolioSection({ portfolioRef }: PortfolioSectionProps
   const [visibleProjects, setVisibleProjects] = useState<number>(6)
   const [showDetailedRoadmap, setShowDetailedRoadmap] = useState<boolean>(false)
   const modalRef = useRef<HTMLDivElement>(null)
+  const { currentLanguage, t } = useLanguage()
 
   // Define the default stack for restaurant projects
   const restaurantTechStack = [
-    "HTML",
-    "CSS",
-    "JavaScript",
-    "Bootstrap",
     "Next.js",
-    "EmailJS",
-    "React",
     "Supabase",
+    "EmailJS",
+    "Tailwind CSS",
+    "TypeScript",
   ]
 
   // List of projects
@@ -98,24 +97,21 @@ export default function PortfolioSection({ portfolioRef }: PortfolioSectionProps
       timeline: "Completed in 2022",
     },
     {
-      id: "habesha-merhaba",
-      title: "Habesha Merhaba",
-      url: "https://habesha-merhaba.nl/",
+      id: "axum-restaurant",
+      title: "Axum Restaurant",
+      url: "https://www.aksumrestaurant.nl",
       type: "Restaurant",
-      description: "Authentic Ethiopian restaurant website with cultural elements and online ordering system.",
-      image: "/images/habesha-merhaba-logo.jpeg",
+      description: "Elegant Ethiopian restaurant website showcasing ancient Axum heritage, featuring online reservations, digital menu, and authentic Ethiopian coffee ceremony experiences.",
+      image: "/images/axum-logo.jpg",
+      technologies: restaurantTechStack,
       completionPercentage: 100,
-      timeline: "Completed in 2023",
-    },
-    {
-      id: "little-ethiopia-antwerp",
-      title: "Little Ethiopia Antwerp",
-      url: "https://little-ethiopia-antwerp.be/",
-      type: "Restaurant",
-      description: "Bilingual website for an Ethiopian restaurant in Belgium with event booking and catering services.",
-      image: "https://little-ethiopia-antwerp.be/new/ethoilogo.png",
-      completionPercentage: 100,
-      timeline: "Completed in 2022",
+      featured: true,
+      testimonial: {
+        text: "EG Web Solutions perfectly captured our vision of blending ancient heritage with modern dining experience.",
+        author: "Axum Restaurant",
+        position: "Management",
+      },
+      timeline: "Completed in 2025",
     },
     {
       id: "kapsalon-stars",
@@ -204,7 +200,7 @@ export default function PortfolioSection({ portfolioRef }: PortfolioSectionProps
     },
   ]
 
-  // Automatically assign the restaurant tech stack
+  // Ensure all restaurant projects have the correct tech stack
   projects = projects.map((project) =>
     project.type === "Restaurant"
       ? { ...project, technologies: restaurantTechStack }
@@ -263,6 +259,56 @@ export default function PortfolioSection({ portfolioRef }: PortfolioSectionProps
     return "bg-blue-100 text-blue-800"
   }
 
+  // Status text translations
+  const getStatusText = (status?: string) => {
+    if (!status) return t("portfolio.completed", "Completed");
+    return t("portfolio.inDevelopment", "In Development");
+  };
+
+  // Category translations
+  const getCategoryText = (category: string) => {
+    switch(category.toLowerCase()) {
+      case "all": return currentLanguage === "en" ? "All" : "Alle";
+      case "restaurant": return currentLanguage === "en" ? "Restaurant" : "Restaurant";
+      case "e-commerce": return "E-commerce";
+      case "social platform": return currentLanguage === "en" ? "Social Platform" : "Sociaal Platform";
+      case "business solution": return currentLanguage === "en" ? "Business Solution" : "Bedrijfsoplossing";
+      case "healthcare": return currentLanguage === "en" ? "Healthcare" : "Gezondheidszorg";
+      case "real estate": return currentLanguage === "en" ? "Real Estate" : "Vastgoed";
+      case "hair salon": return currentLanguage === "en" ? "Hair Salon" : "Kapsalon";
+      default: return category;
+    }
+  };
+
+  // Update the categories display
+  const displayCategories = categories.map(cat => ({
+    value: cat,
+    label: getCategoryText(cat)
+  }));
+
+  // Update status display in the project cards
+  const ProjectStatus = ({ status, completionPercentage }: { status?: string; completionPercentage?: number }) => (
+    <div className="flex items-center space-x-2">
+      {status ? (
+        <>
+          <Hourglass className="h-4 w-4 text-yellow-500" />
+          <span className="text-sm font-medium text-yellow-500">{getStatusText(status)}</span>
+        </>
+      ) : (
+        <>
+          <CheckCircle2 className="h-4 w-4 text-green-500" />
+          <span className="text-sm font-medium text-green-500">{getStatusText()}</span>
+        </>
+      )}
+      {typeof completionPercentage === 'number' && (
+        <Progress value={completionPercentage} className="w-20" />
+      )}
+    </div>
+  );
+
+  // Update the view all text
+  const viewAllText = t("portfolio.viewAll", "View All Projects");
+
   return (
     <section id="portfolio" ref={portfolioRef} className="py-20 bg-blue-50">
       <div className="container mx-auto px-4">
@@ -273,17 +319,17 @@ export default function PortfolioSection({ portfolioRef }: PortfolioSectionProps
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-blue-500">Our Portfolio</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-blue-500">{t("portfolio.title", "Our Portfolio")}</h2>
           <div className="w-24 h-1 bg-blue-400 mx-auto mb-6"></div>
           <p className="text-xl text-gray-700 max-w-2xl mx-auto">
-            Explore our recent projects and see how we've helped businesses transform their digital presence.
+            {t("portfolio.subtitle", "Explore our recent projects and see how we've helped businesses transform their digital presence.")}
           </p>
         </motion.div>
 
         {/* Featured Projects Carousel */}
         {featuredProjects.length > 0 && (
           <div className="mb-16">
-            <h3 className="text-2xl font-bold mb-6 text-center">Featured Projects</h3>
+            <h3 className="text-2xl font-bold mb-6 text-center">{t("portfolio.featuredProjects", "Featured Projects")}</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {featuredProjects.map((project, index) => (
                 <motion.div
@@ -363,7 +409,7 @@ export default function PortfolioSection({ portfolioRef }: PortfolioSectionProps
                         transition={{ duration: 0.3 }}
                       >
                         <div className="flex justify-between text-sm mb-1">
-                          <span>Completion</span>
+                          <span>{t("portfolio.completion", "Completion")}</span>
                           <span>{project.completionPercentage}%</span>
                         </div>
                         <Progress value={project.completionPercentage} className="h-2 bg-gray-700" />
@@ -393,7 +439,7 @@ export default function PortfolioSection({ portfolioRef }: PortfolioSectionProps
                           transition={{ duration: 0.3 }}
                         />
                         <span className="relative z-10 flex items-center">
-                          {project.url !== "#" ? "View Project" : "Learn More"}
+                          {project.url !== "#" ? t("portfolio.viewProject", "View Project") : t("portfolio.learnMore", "Learn More")}
                           <motion.span
                             className="inline-block ml-2"
                             whileHover={{ x: 3 }}
@@ -422,19 +468,19 @@ export default function PortfolioSection({ portfolioRef }: PortfolioSectionProps
 
         {/* Category Filter */}
         <div className="flex flex-wrap justify-center gap-2 mb-10">
-          {categories.map((category) => (
+          {displayCategories.map((category) => (
             <Button
-              key={category}
-              variant={selectedCategory === category ? "default" : "outline"}
+              key={category.value}
+              variant={selectedCategory === category.value ? "default" : "outline"}
               className={cn(
                 "capitalize",
-                selectedCategory === category
+                selectedCategory === category.value
                   ? "bg-blue-500 hover:bg-blue-600 text-white"
                   : "border-blue-200 text-blue-700 hover:border-blue-500",
               )}
-              onClick={() => handleCategoryChange(category)}
+              onClick={() => handleCategoryChange(category.value)}
             >
-              {category}
+              {category.label}
             </Button>
           ))}
         </div>
@@ -496,7 +542,7 @@ export default function PortfolioSection({ portfolioRef }: PortfolioSectionProps
                     {project.completionPercentage !== undefined && project.completionPercentage < 100 && (
                       <div className="mb-4">
                         <div className="flex justify-between text-xs text-gray-500 mb-1">
-                          <span>Completion</span>
+                          <span>{t("portfolio.completion", "Completion")}</span>
                           <span>{project.completionPercentage}%</span>
                         </div>
                         <Progress value={project.completionPercentage} className="h-1.5" />
@@ -505,7 +551,7 @@ export default function PortfolioSection({ portfolioRef }: PortfolioSectionProps
 
                     <div className="mt-auto flex items-center justify-between">
                       {project.completionPercentage !== undefined && project.completionPercentage < 100 && (
-                        <span className="text-sm text-gray-500">end of 2025</span>
+                        <span className="text-sm text-gray-500">{t("portfolio.endOf2025", "end of 2025")}</span>
                       )}
                       {project.completionPercentage === 100 && <span className="text-sm text-gray-500"></span>}
 
@@ -523,11 +569,11 @@ export default function PortfolioSection({ portfolioRef }: PortfolioSectionProps
                         >
                           {project.url !== "#" ? (
                             <>
-                              Visit <ExternalLink className="ml-1 h-3 w-3" />
+                              {t("portfolio.visit", "Visit")} <ExternalLink className="ml-1 h-3 w-3" />
                             </>
                           ) : (
                             <>
-                              Details <ChevronRight className="ml-1 h-3 w-3" />
+                              {t("portfolio.details", "Details")} <ChevronRight className="ml-1 h-3 w-3" />
                             </>
                           )}
                         </Button>
@@ -547,7 +593,7 @@ export default function PortfolioSection({ portfolioRef }: PortfolioSectionProps
               onClick={handleLoadMore}
               className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-full"
             >
-              Load More Projects
+              {viewAllText}
             </Button>
           </div>
         )}
@@ -595,12 +641,12 @@ export default function PortfolioSection({ portfolioRef }: PortfolioSectionProps
                 <div className="p-6 md:p-8">
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <div className="md:col-span-2">
-                      <h4 className="text-xl font-bold mb-4">Project Overview</h4>
+                      <h4 className="text-xl font-bold mb-4">{t("portfolio.projectOverview", "Project Overview")}</h4>
                       <p className="text-gray-700 dark:text-gray-300 mb-6">{selectedProject.description}</p>
 
                       {selectedProject.technologies && (
                         <div className="mb-6">
-                          <h4 className="font-medium mb-3">Technologies Used</h4>
+                          <h4 className="font-medium mb-3">{t("portfolio.technologiesUsed", "Technologies Used")}</h4>
                           <TechStackDisplay technologies={selectedProject.technologies} />
                         </div>
                       )}
@@ -610,7 +656,7 @@ export default function PortfolioSection({ portfolioRef }: PortfolioSectionProps
                           <div className="flex items-center justify-between mb-2">
                             <h4 className="font-medium flex items-center">
                               <Clock className="mr-2 h-5 w-5 text-blue-500" />
-                              Project Status
+                              {t("portfolio.projectStatus", "Project Status")}
                             </h4>
                             <span
                               className={cn(
@@ -622,19 +668,19 @@ export default function PortfolioSection({ portfolioRef }: PortfolioSectionProps
                             >
                               {selectedProject.completionPercentage === 100 ? (
                                 <span className="flex items-center">
-                                  <CheckCircle2 className="mr-1 h-3 w-3" /> Complete
+                                  <CheckCircle2 className="mr-1 h-3 w-3" /> {t("portfolio.complete", "Complete")}
                                 </span>
                               ) : (
                                 <span className="flex items-center">
-                                  <Hourglass className="mr-1 h-3 w-3" /> In Progress
+                                  <Hourglass className="mr-1 h-3 w-3" /> {t("portfolio.inProgress", "In Progress")}
                                 </span>
                               )}
                             </span>
                           </div>
                           <Progress value={selectedProject.completionPercentage} className="h-2" />
                           <div className="flex justify-between text-sm text-gray-500 mt-1">
-                            <span>Completion: {selectedProject.completionPercentage}%</span>
-                            {selectedProject.completionPercentage < 100 && <span>end of 2025</span>}
+                            <span>{t("portfolio.completionLabel", "Completion:")} {selectedProject.completionPercentage}%</span>
+                            {selectedProject.completionPercentage < 100 && <span>{t("portfolio.endOf2025", "end of 2025")}</span>}
                           </div>
                         </div>
                       )}
@@ -644,14 +690,14 @@ export default function PortfolioSection({ portfolioRef }: PortfolioSectionProps
                         selectedProject.completionPercentage < 100 && (
                           <div className="mb-6">
                             <div className="flex justify-between items-center mb-4">
-                              <h4 className="font-medium">Project Timeline</h4>
+                              <h4 className="font-medium">{t("portfolio.projectTimeline", "Project Timeline")}</h4>
                               <Button
                                 variant="outline"
                                 size="sm"
                                 onClick={() => setShowDetailedRoadmap(!showDetailedRoadmap)}
                                 className="text-xs"
                               >
-                                {showDetailedRoadmap ? "Show Simple Timeline" : "Show Detailed Roadmap"}
+                                {showDetailedRoadmap ? t("portfolio.showSimpleTimeline", "Show Simple Timeline") : t("portfolio.showDetailedRoadmap", "Show Detailed Roadmap")}
                               </Button>
                             </div>
 
@@ -693,7 +739,7 @@ export default function PortfolioSection({ portfolioRef }: PortfolioSectionProps
                             className="bg-blue-500 hover:bg-blue-600 text-white"
                             onClick={() => window.open(selectedProject.url, "_blank")}
                           >
-                            Visit Project <ExternalLink className="ml-2 h-4 w-4" />
+                            {t("portfolio.visitProject", "Visit Project")} <ExternalLink className="ml-2 h-4 w-4" />
                           </Button>
                         </div>
                       )}
@@ -703,7 +749,7 @@ export default function PortfolioSection({ portfolioRef }: PortfolioSectionProps
                       <div className="bg-gray-50 dark:bg-gray-900/50 p-4 rounded-lg">
                         <h4 className="font-bold mb-4 flex items-center">
                           <Code className="mr-2 h-5 w-5 text-blue-500" />
-                          Technologies
+                          {t("portfolio.technologiesUsed", "Technologies")}
                         </h4>
                         {selectedProject.technologies ? (
                           <div className="flex flex-wrap gap-2">
@@ -718,7 +764,7 @@ export default function PortfolioSection({ portfolioRef }: PortfolioSectionProps
                             ))}
                           </div>
                         ) : (
-                          <p className="text-gray-500">Technology information not available</p>
+                          <p className="text-gray-500">{t("portfolio.technologyInfoNotAvailable", "Technology information not available")}</p>
                         )}
                       </div>
 
@@ -727,16 +773,16 @@ export default function PortfolioSection({ portfolioRef }: PortfolioSectionProps
                           <div className="mt-6 bg-gray-50 dark:bg-gray-900/50 p-4 rounded-lg">
                             <h4 className="font-bold mb-4 flex items-center">
                               <Calendar className="mr-2 h-5 w-5 text-blue-500" />
-                              Timeline
+                              {t("portfolio.timeline", "Timeline")}
                             </h4>
-                            <p className="text-gray-700 dark:text-gray-300">end of 2025</p>
+                            <p className="text-gray-700 dark:text-gray-300">{t(`portfolio.project.${selectedProject.id}.timeline`, selectedProject.timeline || "")}</p>
                           </div>
                         )}
 
                       <div className="mt-6 bg-gray-50 dark:bg-gray-900/50 p-4 rounded-lg">
                         <h4 className="font-bold mb-4 flex items-center">
                           <Tag className="mr-2 h-5 w-5 text-blue-500" />
-                          Category
+                          {t("portfolio.category", "Category")}
                         </h4>
                         <p className="text-gray-700 dark:text-gray-300">{selectedProject.type}</p>
                       </div>
