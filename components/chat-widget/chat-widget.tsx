@@ -268,7 +268,7 @@ export function ChatWidget() {
             <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-4 flex items-center justify-between">
               <div className="flex items-center space-x-3">
                 <div className="relative h-10 w-10 rounded-full bg-white/20 flex items-center justify-center overflow-hidden border-2 border-white/30">
-                  <img src="/images/about.png" alt="Eyobiel Goitom" className="h-10 w-10 object-cover rounded-full" />
+                  <img src="/IMG_1255.jpg" alt="Eyobiel Goitom" className="h-10 w-10 object-cover rounded-full" />
                 </div>
                 <div>
                   <h3 className="font-semibold">Eyobiel Goitom</h3>
@@ -325,7 +325,7 @@ export function ChatWidget() {
                     <div className="space-y-2">
                       {message.role !== "user" && (
                         <div className="flex items-center space-x-2">
-                          <img src="/images/about.png" alt="Eyobiel Goitom" className="h-6 w-6 rounded-full object-cover bg-blue-100" />
+                          <img src="/IMG_1255.jpg" alt="Eyobiel Goitom" className="h-6 w-6 rounded-full object-cover bg-blue-100" />
                           <span className="text-xs font-medium">Eyobiel</span>
                         </div>
                       )}

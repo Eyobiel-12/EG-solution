@@ -125,7 +125,7 @@ export default function AboutPage() {
             </motion.div>
             <div className="flex justify-center items-center">
               <img
-                src="/images/about.png"
+                src="/IMG_1255.jpg"
                 alt="About EG Web Solutions"
                 className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg h-auto rounded-2xl shadow-lg object-cover mx-auto"
               />
