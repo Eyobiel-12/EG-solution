@@ -68,7 +68,6 @@ export default function PortfolioSection({ portfolioRef }: PortfolioSectionProps
       image: "/images/bsm-furniture-logo.jpeg",
       technologies: ["Next.js", "JavaScript", "CSS", "Bootstrap", "MongoDB"],
       completionPercentage: 100,
-      featured: true,
       timeline: "Completed in 2023",
     },
     {
@@ -85,6 +84,7 @@ export default function PortfolioSection({ portfolioRef }: PortfolioSectionProps
       },
       completionPercentage: 100,
       timeline: "Completed in 2022",
+      featured: true,
     },
     {
       id: "savanna-eetcafe",
@@ -95,6 +95,7 @@ export default function PortfolioSection({ portfolioRef }: PortfolioSectionProps
       image: "/images/savanna-eetcafe-logo.png",
       completionPercentage: 100,
       timeline: "Completed in 2022",
+      featured: true,
     },
     {
       id: "axum-restaurant",
@@ -158,6 +159,7 @@ export default function PortfolioSection({ portfolioRef }: PortfolioSectionProps
       ],
       completionPercentage: 100,
       timeline: "Completed in 2024",
+      featured: true,
     },
     {
       id: "ecommerce-platform",
