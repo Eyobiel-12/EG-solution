@@ -728,3 +728,5 @@ export default function GetStartedPage() {
     </div>
   )
 }
+
+export const dynamic = 'force-static'

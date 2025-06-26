@@ -224,11 +224,6 @@ export function ChatWidget() {
     }
   }
 
-  // Open schedule modal
-  const openScheduleModal = () => {
-    setIsScheduleModalOpen(true)
-  }
-
   return (
     <>
       {/* Chat button */}
@@ -380,7 +375,7 @@ export function ChatWidget() {
               {messages.length > 1 && !isTyping && (
                 <div className="flex justify-center my-2">
                   <Button
-                    onClick={openScheduleModal}
+                    onClick={() => setIsScheduleModalOpen(true)}
                     className="bg-blue-600 hover:bg-blue-700 text-white flex items-center gap-2 shadow-sm"
                     size="sm"
                   >
@@ -443,7 +438,7 @@ export function ChatWidget() {
                     </a>
                     <button
                       type="button"
-                      onClick={openScheduleModal}
+                      onClick={() => setIsScheduleModalOpen(true)}
                       className="flex items-center text-xs text-blue-600 hover:text-blue-800"
                     >
                       <Calendar className="h-3 w-3 mr-1" />
@@ -466,7 +461,6 @@ export function ChatWidget() {
               Fill out the form below to schedule a personal consultation about your project needs.
             </DialogDescription>
           </DialogHeader>
-
           {!isSubmitted ? (
             <form onSubmit={handleScheduleSubmit} className="space-y-4 pt-4">
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -492,7 +486,6 @@ export function ChatWidget() {
                   />
                 </div>
               </div>
-
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div className="space-y-2">
                   <Label htmlFor="phone">Phone Number</Label>
@@ -517,7 +510,6 @@ export function ChatWidget() {
                   />
                 </div>
               </div>
-
               <div className="space-y-2">
                 <Label>Preferred Time</Label>
                 <RadioGroup
@@ -545,7 +537,6 @@ export function ChatWidget() {
                   </div>
                 </RadioGroup>
               </div>
-
               <div className="space-y-2">
                 <Label htmlFor="message">Message (Optional)</Label>
                 <Textarea
@@ -557,7 +548,6 @@ export function ChatWidget() {
                   className="min-h-[100px]"
                 />
               </div>
-
               <div className="flex justify-end pt-2">
                 <Button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white" disabled={isSubmitting}>
                   {isSubmitting ? (
