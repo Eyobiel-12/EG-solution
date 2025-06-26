@@ -1,12 +1,10 @@
-"use client"
-
 import type React from "react"
 import "@/app/globals.css"
 import { Inter } from "next/font/google"
 import SiteHeader from "@/components/site-header"
 import SiteFooter from "@/components/site-footer"
 import { ThemeProvider } from "@/components/theme-provider"
-import { LanguageProvider, useLanguage } from "@/components/language-context"
+import { LanguageProvider } from "@/components/language-context"
 import { ChatWidgetContainer } from "@/components/chat-widget"
 
 const inter = Inter({ subsets: ["latin"] })
@@ -44,11 +42,9 @@ export const metadata = {
   generator: 'v0.dev'
 }
 
-function RootLayoutContent({ children }: { children: React.ReactNode }) {
-  const { currentLanguage } = useLanguage()
-  
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang={currentLanguage}>
+    <html lang="en">
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="light">
           <LanguageProvider>
@@ -62,15 +58,5 @@ function RootLayoutContent({ children }: { children: React.ReactNode }) {
         </ThemeProvider>
       </body>
     </html>
-  )
-}
-
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <ThemeProvider attribute="class" defaultTheme="light">
-      <LanguageProvider>
-        <RootLayoutContent>{children}</RootLayoutContent>
-      </LanguageProvider>
-    </ThemeProvider>
   )
 }
