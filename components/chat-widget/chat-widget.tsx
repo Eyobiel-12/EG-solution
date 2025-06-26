@@ -14,9 +14,11 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import emailjs from '@emailjs/browser'
+import { useLanguage } from "@/components/language-context"
 
 export function ChatWidget() {
   const { isOpen, messages, isTyping, unreadCount, toggleChat, sendMessage, resetUnreadCount, setMessages } = useChat()
+  const { t } = useLanguage()
   const [input, setInput] = useState("")
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -75,7 +77,7 @@ export function ChatWidget() {
       setMessages([
         {
           ...messages[0],
-          content: randomGreeting(),
+          content: t("chat.welcomeMessage", "👋 Hey there! I'm Eyobiel from EG Web Solutions. How can I help you today?"),
         },
       ])
     }
@@ -383,7 +385,7 @@ export function ChatWidget() {
                     size="sm"
                   >
                     <Calendar className="h-4 w-4" />
-                    Schedule a Consultation
+                    {t("chat.scheduleConsultation", "Schedule a Consultation")}
                   </Button>
                 </div>
               )}
@@ -396,12 +398,12 @@ export function ChatWidget() {
                 !isTyping && (
                   <div className="flex justify-center">
                     <Button variant="outline" size="sm" onClick={retryLastMessage} className="text-xs bg-white">
-                      <RefreshCw className="h-3 w-3 mr-1" /> No response? Click to try again
+                      <RefreshCw className="h-3 w-3 mr-1" /> {t("chat.noResponse", "No response? Click to try again")}
                     </Button>
                   </div>
                 )}
               {/* Empty state */}
-              {messages.length === 0 && <div className="text-center text-gray-500 py-4">Start a conversation!</div>}
+              {messages.length === 0 && <div className="text-center text-gray-500 py-4">{t("chat.startConversation", "Start a conversation!")}</div>}
               <div ref={messagesEndRef} />
             </div>
 
@@ -412,7 +414,7 @@ export function ChatWidget() {
                   <Input
                     ref={inputRef}
                     type="text"
-                    placeholder={`${getTimeBasedGreeting()}! Type your message...`}
+                    placeholder={t("chat.typeMessage", "Type your message...")}
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     className="flex-1 focus-visible:ring-blue-500 bg-gray-50 border-gray-200"
@@ -423,7 +425,7 @@ export function ChatWidget() {
                     size="icon"
                     disabled={!input.trim() || isTyping || isSending}
                     className="h-10 w-10 rounded-full bg-blue-600 hover:bg-blue-700 text-white transition-all duration-200"
-                    aria-label="Send message"
+                    aria-label={t("chat.send", "Send message")}
                   >
                     {isTyping || isSending ? (
                       <Loader2 className="h-4 w-4 animate-spin" />
@@ -433,11 +435,11 @@ export function ChatWidget() {
                   </Button>
                 </div>
                 <div className="flex items-center justify-between">
-                  <p className="text-xs text-gray-500">For assistance, contact Eyobiel at 0687033774</p>
+                  <p className="text-xs text-gray-500">{t("chat.forAssistance", "For assistance, contact Eyobiel at 0687033774")}</p>
                   <div className="flex items-center space-x-2">
                     <a href="tel:0687033774" className="flex items-center text-xs text-blue-600 hover:text-blue-800">
                       <Phone className="h-3 w-3 mr-1" />
-                      Call
+                      {t("chat.call", "Call")}
                     </a>
                     <button
                       type="button"
@@ -445,7 +447,7 @@ export function ChatWidget() {
                       className="flex items-center text-xs text-blue-600 hover:text-blue-800"
                     >
                       <Calendar className="h-3 w-3 mr-1" />
-                      Schedule
+                      {t("chat.schedule", "Schedule")}
                     </button>
                   </div>
                 </div>
