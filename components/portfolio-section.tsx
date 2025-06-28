@@ -232,6 +232,18 @@ export default function PortfolioSection({ portfolioRef }: PortfolioSectionProps
       completionPercentage: 30,
       timeline: t("portfolio.realEstate.timeline", "end of 2025"),
     },
+    {
+      id: "yohannes-hovenier",
+      title: "Yohannes Hovenier B.V.",
+      url: "https://www.yohanneshoveniersbedrijf.nl/",
+      type: "Landscaping",
+      description: t("portfolio.yohannesHovenier.description", "Professional landscaping and garden maintenance website for Yohannes Hovenier B.V., featuring service overviews, project portfolio, and contact integration."),
+      image: "/Screenshot 2025-06-28 at 18.23.19.png",
+      technologies: ["React", "Next.js", "EmailJS"],
+      completionPercentage: 100,
+      timeline: t("portfolio.yohannesHovenier.timeline", "Completed in 2025"),
+      featured: true,
+    },
   ]
 
   // Ensure all restaurant projects have the correct tech stack

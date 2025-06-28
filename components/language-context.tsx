@@ -197,6 +197,8 @@ const translations: Record<string, Record<string, string>> = {
     "chat.call": "Call",
     "chat.schedule": "Schedule",
     "contact.workingHoursLabel": "Working Hours",
+    "portfolio.yohannesHovenier.description": "Professional landscaping and garden maintenance website for Yohannes Hovenier B.V., featuring service overviews, project portfolio, and contact integration.",
+    "portfolio.yohannesHovenier.timeline": "Completed in 2025",
   },
   nl: {
     "nav.home": "Home",
@@ -413,6 +415,8 @@ const translations: Record<string, Record<string, string>> = {
     "chat.call": "Bellen",
     "chat.schedule": "Inplannen",
     "contact.workingHoursLabel": "Openingstijden",
+    "portfolio.yohannesHovenier.description": "Professionele website voor tuinonderhoud en groenbeheer van Yohannes Hovenier B.V., met dienstenoverzicht, projectportfolio en contactintegratie.",
+    "portfolio.yohannesHovenier.timeline": "Voltooid in 2025",
   },
 }
 

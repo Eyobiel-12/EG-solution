@@ -548,9 +548,17 @@ export default function Home() {
                 </div>
 
                 <div className="mt-8">
-                  <div className="h-64 w-full bg-white rounded-xl border border-blue-100">
-                    {/* Map placeholder */}
-                    <div className="h-full w-full flex items-center justify-center text-gray-400">{t("contact.interactiveMap", "Interactive Map")}</div>
+                  <div className="h-64 w-full bg-white rounded-xl border border-blue-100 overflow-hidden">
+                    <iframe
+                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4886.1863572103775!2d6.1793214768430635!3d52.2416911719895!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c7eaff8d96fe9d%3A0xc463458e1d5a68e8!2sZweedsestraat%208a16%2C%207418%20BG%20Deventer!5e0!3m2!1sen!2snl!4v1751128224080!5m2!1sen!2snl"
+                      width="100%"
+                      height="100%"
+                      style={{ border: 0 }}
+                      allowFullScreen=""
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
+                      title="EG Web Solutions Location"
+                    ></iframe>
                   </div>
                 </div>
               </div>
