@@ -539,7 +539,7 @@ export default function Home() {
                       <Clock className="h-5 w-5" />
                     </AnimatedIcon>
                     <div className="ml-4">
-                      <h4 className="font-medium">{t("contact.workingHours", "Working Hours")}</h4>
+                      <h4 className="font-medium">{t("contact.workingHoursLabel", "Working Hours")}</h4>
                       <p className="text-gray-600 mt-1">
                         {t("contact.workingHours", "Monday - Friday: 9:00 - 18:00\nWeekend: By appointment")}
                       </p>

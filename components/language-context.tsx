@@ -196,6 +196,7 @@ const translations: Record<string, Record<string, string>> = {
     "chat.forAssistance": "For assistance, contact Eyobiel at 0687033774",
     "chat.call": "Call",
     "chat.schedule": "Schedule",
+    "contact.workingHoursLabel": "Working Hours",
   },
   nl: {
     "nav.home": "Home",
@@ -411,6 +412,7 @@ const translations: Record<string, Record<string, string>> = {
     "chat.forAssistance": "Voor hulp, neem contact op met Eyobiel op 0687033774",
     "chat.call": "Bellen",
     "chat.schedule": "Inplannen",
+    "contact.workingHoursLabel": "Openingstijden",
   },
 }
 
