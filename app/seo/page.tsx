@@ -1,6 +1,7 @@
 "use client"
 
 import type React from "react"
+import { DotLottieReact } from "@lottiefiles/dotlottie-react"
 
 import { useState } from "react"
 import Link from "next/link"
@@ -264,13 +265,13 @@ export default function SEOPage() {
                   <div className="absolute -top-6 -right-6 w-24 h-24 bg-blue-200 rounded-full opacity-50 blur-xl"></div>
                   <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-blue-300 rounded-full opacity-40 blur-xl"></div>
 
-                  <div className="relative z-10 bg-white rounded-2xl shadow-xl overflow-hidden border border-blue-100">
-                    <Image
-                      src="/placeholder.svg?height=600&width=800"
-                      alt="SEO & Marketing Services"
-                      width={800}
-                      height={600}
-                      className="w-full h-auto"
+                  <div className="relative z-10 bg-white rounded-2xl shadow-xl overflow-hidden border border-blue-100 flex flex-col items-center justify-center p-4">
+                    <DotLottieReact
+                      src="https://lottie.host/ec2db1d7-2d5f-4427-9997-b3282d7221f9/mz3NFGFN70.lottie"
+                      loop
+                      autoplay
+                      style={{ width: '100%', maxWidth: 400, height: 'auto' }}
+                      className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl h-auto mx-auto"
                     />
                   </div>
                 </div>
