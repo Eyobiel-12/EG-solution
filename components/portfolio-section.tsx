@@ -90,7 +90,7 @@ export default function PortfolioSection({ portfolioRef }: PortfolioSectionProps
       title: "Savanna Eetcafe",
       url: "https://www.savannaeetcafe.nl/",
       type: "Restaurant",
-      description: t("portfolio.savannaEetcafe.description", "Modern website for a popular café featuring online ordering and loyalty program integration."),
+      description: t("portfolio.savannaEetcafe.description", "Modern website for a popular café with menu showcase, gallery, and contact information."),
       image: "/images/savanna-eetcafe-logo.png",
       completionPercentage: 100,
       timeline: t("portfolio.savannaEetcafe.timeline", "Completed in 2022"),
