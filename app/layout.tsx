@@ -38,7 +38,10 @@ export const metadata = {
     },
     siteName: "EG Web Solutions",
   },
-  generator: 'v0.dev'
+  generator: 'v0.dev',
+  verification: {
+    google: 'S61ugxrRxb_pWQxARq7lynx_xHDzMJNGxLW2Cg5CYzg',
+  }
 }
 
 export const viewport = {
