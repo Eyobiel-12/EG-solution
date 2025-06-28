@@ -35,6 +35,7 @@ export function ChatWidget() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [scheduleStep, setScheduleStep] = useState(1)
 
   // Add a list of random greetings and emojis
   const greetings = [
@@ -463,103 +464,136 @@ export function ChatWidget() {
           </DialogHeader>
           {!isSubmitted ? (
             <form onSubmit={handleScheduleSubmit} className="space-y-4 pt-4">
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <div className="space-y-2">
-                  <Label htmlFor="name">Your Name</Label>
-                  <Input
-                    id="name"
-                    name="name"
-                    value={scheduleFormData.name}
-                    onChange={handleScheduleInputChange}
-                    required
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="email">Email Address</Label>
-                  <Input
-                    id="email"
-                    name="email"
-                    type="email"
-                    value={scheduleFormData.email}
-                    onChange={handleScheduleInputChange}
-                    required
-                  />
-                </div>
-              </div>
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <div className="space-y-2">
-                  <Label htmlFor="phone">Phone Number</Label>
-                  <Input
-                    id="phone"
-                    name="phone"
-                    value={scheduleFormData.phone}
-                    onChange={handleScheduleInputChange}
-                    required
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="preferredDate">Preferred Date</Label>
-                  <Input
-                    id="preferredDate"
-                    name="preferredDate"
-                    type="date"
-                    value={scheduleFormData.preferredDate}
-                    onChange={handleScheduleInputChange}
-                    min={new Date().toISOString().split("T")[0]}
-                    required
-                  />
-                </div>
-              </div>
-              <div className="space-y-2">
-                <Label>Preferred Time</Label>
-                <RadioGroup
-                  value={scheduleFormData.preferredTime}
-                  onValueChange={handleTimeChange}
-                  className="flex space-x-4"
-                >
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="morning" id="morning" />
-                    <Label htmlFor="morning" className="cursor-pointer">
-                      Morning
-                    </Label>
+              {scheduleStep === 1 && (
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="name">Your Name</Label>
+                    <Input
+                      id="name"
+                      name="name"
+                      value={scheduleFormData.name}
+                      onChange={handleScheduleInputChange}
+                      required
+                    />
                   </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="afternoon" id="afternoon" />
-                    <Label htmlFor="afternoon" className="cursor-pointer">
-                      Afternoon
-                    </Label>
+                  <div className="space-y-2">
+                    <Label htmlFor="email">Email Address</Label>
+                    <Input
+                      id="email"
+                      name="email"
+                      type="email"
+                      value={scheduleFormData.email}
+                      onChange={handleScheduleInputChange}
+                      required
+                    />
                   </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="evening" id="evening" />
-                    <Label htmlFor="evening" className="cursor-pointer">
-                      Evening
-                    </Label>
+                </div>
+              )}
+              {scheduleStep === 2 && (
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="phone">Phone Number</Label>
+                    <Input
+                      id="phone"
+                      name="phone"
+                      value={scheduleFormData.phone}
+                      onChange={handleScheduleInputChange}
+                      required
+                    />
                   </div>
-                </RadioGroup>
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="message">Message (Optional)</Label>
-                <Textarea
-                  id="message"
-                  name="message"
-                  placeholder="Tell us about your project or any specific questions you have..."
-                  value={scheduleFormData.message}
-                  onChange={handleScheduleInputChange}
-                  className="min-h-[100px]"
-                />
-              </div>
-              <div className="flex justify-end pt-2">
-                <Button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white" disabled={isSubmitting}>
-                  {isSubmitting ? (
-                    <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Scheduling...
-                    </>
-                  ) : (
-                    <>
-                      Schedule Consultation <ArrowRight className="ml-2 h-4 w-4" />
-                    </>
-                  )}
-                </Button>
+                  <div className="space-y-2">
+                    <Label htmlFor="preferredDate">Preferred Date</Label>
+                    <Input
+                      id="preferredDate"
+                      name="preferredDate"
+                      type="date"
+                      value={scheduleFormData.preferredDate}
+                      onChange={handleScheduleInputChange}
+                      min={new Date().toISOString().split("T")[0]}
+                      required
+                    />
+                  </div>
+                </div>
+              )}
+              {scheduleStep === 3 && (
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <Label>Preferred Time</Label>
+                    <RadioGroup
+                      value={scheduleFormData.preferredTime}
+                      onValueChange={handleTimeChange}
+                      className="flex space-x-4"
+                    >
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="morning" id="morning" />
+                        <Label htmlFor="morning" className="cursor-pointer">
+                          Morning
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="afternoon" id="afternoon" />
+                        <Label htmlFor="afternoon" className="cursor-pointer">
+                          Afternoon
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="evening" id="evening" />
+                        <Label htmlFor="evening" className="cursor-pointer">
+                          Evening
+                        </Label>
+                      </div>
+                    </RadioGroup>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="message">Message (Optional)</Label>
+                    <Textarea
+                      id="message"
+                      name="message"
+                      placeholder="Tell us about your project or any specific questions you have..."
+                      value={scheduleFormData.message}
+                      onChange={handleScheduleInputChange}
+                      className="min-h-[100px]"
+                    />
+                  </div>
+                </div>
+              )}
+              {scheduleStep === 4 && (
+                <div className="space-y-4">
+                  <div className="text-sm text-gray-700">Please review your information before submitting:</div>
+                  <div className="bg-gray-50 rounded-lg p-4 space-y-2">
+                    <div><strong>Name:</strong> {scheduleFormData.name}</div>
+                    <div><strong>Email:</strong> {scheduleFormData.email}</div>
+                    <div><strong>Phone:</strong> {scheduleFormData.phone}</div>
+                    <div><strong>Date:</strong> {scheduleFormData.preferredDate}</div>
+                    <div><strong>Time:</strong> {scheduleFormData.preferredTime}</div>
+                    <div><strong>Message:</strong> {scheduleFormData.message || <span className="text-gray-400">(none)</span>}</div>
+                  </div>
+                </div>
+              )}
+              <div className="flex justify-between pt-2">
+                {scheduleStep > 1 && (
+                  <Button type="button" variant="outline" onClick={() => setScheduleStep(scheduleStep - 1)}>
+                    Back
+                  </Button>
+                )}
+                {scheduleStep < 4 && (
+                  <Button type="button" className="bg-blue-600 hover:bg-blue-700 text-white ml-auto" onClick={() => setScheduleStep(scheduleStep + 1)}>
+                    Next
+                  </Button>
+                )}
+                {scheduleStep === 4 && (
+                  <Button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white ml-auto" disabled={isSubmitting}>
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Scheduling...
+                      </>
+                    ) : (
+                      <>
+                        Schedule Consultation <ArrowRight className="ml-2 h-4 w-4" />
+                      </>
+                    )}
+                  </Button>
+                )}
               </div>
             </form>
           ) : (
