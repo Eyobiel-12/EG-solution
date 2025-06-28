@@ -2,14 +2,20 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['hebbkx1anhila5yf.public.blob.vercel-storage.com', 'v0.blob.com'],
-  },
-  // PWA config
-  pwa: {
-    dest: 'public',
-    disable: process.env.NODE_ENV === 'development',
-    register: true,
-    skipWaiting: true,
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'hebbkx1anhila5yf.public.blob.vercel-storage.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'v0.blob.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'kapsalonstars.nl',
+      },
+    ],
   },
   eslint: {
     ignoreDuringBuilds: true,

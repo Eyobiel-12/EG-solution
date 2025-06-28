@@ -19,7 +19,6 @@ export const metadata = {
     nl: "Professionele webontwikkeling, e-commerce en SEO-diensten"
   },
   manifest: "/manifest.json",
-  themeColor: "#ffffff",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
@@ -40,6 +39,10 @@ export const metadata = {
     siteName: "EG Web Solutions",
   },
   generator: 'v0.dev'
+}
+
+export const viewport = {
+  themeColor: "#ffffff",
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

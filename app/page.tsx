@@ -69,75 +69,6 @@ export default function Home() {
     setDots(getRandomDots(20))
   }, [])
 
-  // Translation keys for the page
-  const translations = {
-    offlineMessage: currentLanguage === "en" ? "You are currently offline. Some features may be limited." : "U bent momenteel offline. Sommige functies kunnen beperkt zijn.",
-    premiumBadge: currentLanguage === "en" ? "Premium Web Development & Design" : "Premium Webontwikkeling & Design",
-    heroTitle1: currentLanguage === "en" ? "Transform Your" : "Transformeer uw",
-    heroTitle2: currentLanguage === "en" ? "Digital Presence" : "Digitale Aanwezigheid",
-    heroSubtitle: currentLanguage === "en" 
-      ? "We craft sophisticated digital experiences that blend elegance with functionality, helping your business stand out in today's competitive landscape."
-      : "Wij creëren verfijnde digitale ervaringen die elegantie combineren met functionaliteit, waardoor uw bedrijf zich onderscheidt in het huidige competitieve landschap.",
-    features: {
-      customDev: currentLanguage === "en" ? "Custom Web Development" : "Aangepaste Webontwikkeling",
-      uiux: currentLanguage === "en" ? "Stunning UI/UX Design" : "Prachtig UI/UX Design",
-      ecommerce: currentLanguage === "en" ? "E-commerce Solutions" : "E-commerce Oplossingen",
-      secure: currentLanguage === "en" ? "Secure & Scalable Applications" : "Veilige & Schaalbare Applicaties"
-    },
-    viewWork: currentLanguage === "en" ? "View Our Work" : "Bekijk ons werk",
-    stats: {
-      projects: currentLanguage === "en" ? "Projects Completed" : "Projecten Voltooid",
-      satisfaction: currentLanguage === "en" ? "Client Satisfaction" : "Klanttevredenheid",
-      experience: currentLanguage === "en" ? "Years Experience" : "Jaar Ervaring"
-    },
-    exploreServices: currentLanguage === "en" ? "Explore Our Services" : "Ontdek onze diensten",
-    trustedBy: currentLanguage === "en" ? "Trusted by:" : "Vertrouwd door:",
-    services: {
-      webApp: {
-        title: currentLanguage === "en" ? "Web App Development" : "Web App Ontwikkeling",
-        description: currentLanguage === "en" 
-          ? "Scalable, user-friendly web applications tailored for businesses and startups."
-          : "Schaalbare, gebruiksvriendelijke webapplicaties op maat voor bedrijven en startups."
-      },
-      promoVideos: {
-        title: currentLanguage === "en" ? "Promo Videos & Ads" : "Promo Video's & Advertenties",
-        description: currentLanguage === "en"
-          ? "Engaging video ads, motion graphics, and promotional content."
-          : "Boeiende video-advertenties, motion graphics en promotionele content."
-      },
-      graphicDesign: {
-        title: currentLanguage === "en" ? "Graphic Design & Branding" : "Grafisch Ontwerp & Branding",
-        description: currentLanguage === "en"
-          ? "Custom logos, posters, and marketing materials designed to make an impact."
-          : "Aangepaste logo's, posters en marketingmateriaal ontworpen om indruk te maken."
-      },
-      maintenance: {
-        title: currentLanguage === "en" ? "Website Maintenance & SEO" : "Website Onderhoud & SEO",
-        description: currentLanguage === "en"
-          ? "Ongoing support, performance optimization, and SEO strategies."
-          : "Doorlopende ondersteuning, prestatieoptimalisatie en SEO-strategieën."
-      },
-      ecommerce: {
-        title: currentLanguage === "en" ? "E-commerce Platform" : "E-commerce Platform",
-        description: currentLanguage === "en"
-          ? "Full-featured online shopping experience with product management and secure payments."
-          : "Volledig uitgeruste online winkelervaring met productbeheer en veilige betalingen."
-      },
-      healthcare: {
-        title: currentLanguage === "en" ? "Healthcare Portal" : "Gezondheidszorg Portal",
-        description: currentLanguage === "en"
-          ? "Comprehensive medical services platform for patient management and appointments."
-          : "Uitgebreid medisch dienstenplatform voor patiëntbeheer en afspraken."
-      },
-      dating: {
-        title: currentLanguage === "en" ? "Habesha Dating Site" : "Habesha Dating Site",
-        description: currentLanguage === "en"
-          ? "A specialized dating platform for the Habesha community."
-          : "Een gespecialiseerd datingsplatform voor de Habesha-gemeenschap."
-      }
-    }
-  };
-
   // Check online status
   useEffect(() => {
     const handleOnlineStatus = () => {
@@ -161,56 +92,56 @@ export default function Home() {
 
   const services = [
     {
-      title: translations.services.webApp.title,
-      description: translations.services.webApp.description,
+      title: t("services.webApp.title", "Web App Development"),
+      description: t("services.webApp.description", "Scalable, user-friendly web applications tailored for businesses and startups."),
       icon: <Code className="h-8 w-8" />,
       lottie: "https://lottie.host/a42aaad4-716b-4590-8958-0ffd75794a1d/IrvfxZE4m1.lottie",
       animationType: "pulse",
     },
     {
-      title: translations.services.promoVideos.title,
-      description: translations.services.promoVideos.description,
+      title: t("services.promoVideos.title", "Promo Videos & Ads"),
+      description: t("services.promoVideos.description", "Engaging video ads, motion graphics, and promotional content."),
       icon: <Film className="h-8 w-8" />,
       lottie: "https://lottie.host/d9212ce8-80f3-431e-8354-5e2363dc12db/lUfzG8vxEw.lottie",
       animationType: "rotate",
     },
     {
-      title: translations.services.graphicDesign.title,
-      description: translations.services.graphicDesign.description,
+      title: t("services.graphicDesign.title", "Graphic Design & Branding"),
+      description: t("services.graphicDesign.description", "Custom logos, posters, and marketing materials designed to make an impact."),
       icon: <Paintbrush className="h-8 w-8" />,
       lottie: "https://lottie.host/6d3df4a3-2a6d-4c41-a25a-6996a24808a5/AeEpQexKnZ.lottie",
       animationType: "wiggle",
     },
     {
-      title: translations.services.maintenance.title,
-      description: translations.services.maintenance.description,
+      title: t("services.maintenance.title", "Website Maintenance & SEO"),
+      description: t("services.maintenance.description", "Ongoing support, performance optimization, and SEO strategies."),
       icon: <Search className="h-8 w-8" />,
       lottie: "https://lottie.host/3672bb16-4e52-4717-b146-3d2f19d3580d/mzl8pGehuc.lottie",
       animationType: "bounce",
     },
     {
-      title: translations.services.ecommerce.title,
-      description: translations.services.ecommerce.description,
+      title: t("services.ecommerce.title", "E-commerce Platform"),
+      description: t("services.ecommerce.description", "Full-featured online shopping experience with product management and secure payments."),
       icon: <ShoppingCart className="h-8 w-8" />,
       lottie: "https://lottie.host/82f97e70-8d74-41ca-9f0f-de41290bb313/FSVeesLf73.lottie",
       animationType: "scale",
-      status: "In Development",
+      status: t("services.inDevelopment", "In Development"),
     },
     {
-      title: translations.services.healthcare.title,
-      description: translations.services.healthcare.description,
+      title: t("services.healthcare.title", "Healthcare Portal"),
+      description: t("services.healthcare.description", "Comprehensive medical services platform for patient management and appointments."),
       icon: <Stethoscope className="h-8 w-8" />,
       lottie: "https://lottie.host/44fcef0a-90b6-477f-a90c-ef5f13f5758b/rnLXYMd9Vw.lottie",
       animationType: "pulse",
-      status: "In Development",
+      status: t("services.inDevelopment", "In Development"),
     },
     {
-      title: translations.services.dating.title,
-      description: translations.services.dating.description,
+      title: t("services.dating.title", "Habesha Dating Site"),
+      description: t("services.dating.description", "A specialized dating platform for the Habesha community."),
       icon: <Heart className="h-8 w-8" />,
       lottie: "https://lottie.host/4371091d-c4cc-4f7b-b980-b85555c40ffa/KiMUP8JjIs.lottie",
       animationType: "bounce",
-      status: "In Development",
+      status: t("services.inDevelopment", "In Development"),
     },
   ]
 
@@ -228,7 +159,7 @@ export default function Home() {
       {/* Offline notification */}
       {!isOnline && (
         <div className="fixed top-0 left-0 right-0 bg-amber-500 text-white p-2 text-center z-50">
-          {translations.offlineMessage}
+          {currentLanguage === "en" ? "You are currently offline. Some features may be limited." : "U bent momenteel offline. Sommige functies kunnen beperkt zijn."}
         </div>
       )}
 
@@ -284,7 +215,7 @@ export default function Home() {
                   transition={{ delay: 0.2, duration: 0.5 }}
                 >
                   <Badge className="mb-6 bg-blue-100 text-blue-700 hover:bg-blue-200 px-3 py-1 text-sm rounded-full">
-                    {translations.premiumBadge}
+                    {t("hero.premiumBadge", "Premium Web Development & Design")}
                   </Badge>
                 </motion.div>
 
@@ -296,7 +227,7 @@ export default function Home() {
                     transition={{ duration: 0.5 }}
                     className="block"
                   >
-                    {translations.heroTitle1}
+                    {t("hero.transformYour", "Transform Your")}
                   </motion.span>
                   <motion.span
                     initial={{ opacity: 0 }}
@@ -304,7 +235,7 @@ export default function Home() {
                     transition={{ delay: 0.3, duration: 0.5 }}
                     className="block text-blue-500"
                   >
-                    {translations.heroTitle2}
+                    {t("hero.digitalPresence", "Digital Presence")}
                   </motion.span>
                 </h1>
 
@@ -323,7 +254,7 @@ export default function Home() {
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.7, duration: 0.5 }}
                 >
-                  {translations.heroSubtitle}
+                  {t("hero.subtitle", "We craft sophisticated digital experiences that blend elegance with functionality, helping your business stand out in today's competitive landscape.")}
                 </motion.p>
 
                 {/* Feature list */}
@@ -334,10 +265,10 @@ export default function Home() {
                   transition={{ delay: 0.9, duration: 0.5 }}
                 >
                   {[
-                    { icon: <Code className="h-4 w-4" />, text: translations.features.customDev },
-                    { icon: <Paintbrush className="h-4 w-4" />, text: translations.features.uiux },
-                    { icon: <Globe className="h-4 w-4" />, text: translations.features.ecommerce },
-                    { icon: <Shield className="h-4 w-4" />, text: translations.features.secure },
+                    { icon: <Code className="h-4 w-4" />, text: t("hero.features.customDev", "Custom Web Development") },
+                    { icon: <Paintbrush className="h-4 w-4" />, text: t("hero.features.uiux", "Stunning UI/UX Design") },
+                    { icon: <Globe className="h-4 w-4" />, text: t("hero.features.ecommerce", "E-commerce Solutions") },
+                    { icon: <Shield className="h-4 w-4" />, text: t("hero.features.secure", "Secure & Scalable Applications") },
                   ].map((feature, index) => (
                     <motion.div
                       key={index}
@@ -377,7 +308,7 @@ export default function Home() {
                       variant="outline"
                       className="px-8 py-3 rounded-full border-blue-300 text-blue-600 hover:bg-blue-50"
                     >
-                      {translations.viewWork}
+                      {t("hero.viewWork", "View Our Work")}
                     </Button>
                   </Link>
                 </motion.div>
@@ -390,9 +321,9 @@ export default function Home() {
                   transition={{ delay: 1.5, duration: 0.5 }}
                 >
                   {[
-                    { value: "50+", label: translations.stats.projects },
-                    { value: "98%", label: translations.stats.satisfaction },
-                    { value: "5+", label: translations.stats.experience },
+                    { value: "50+", label: t("hero.stats.projects", "Projects Completed") },
+                    { value: "98%", label: t("hero.stats.satisfaction", "Client Satisfaction") },
+                    { value: "5+", label: t("hero.stats.experience", "Years Experience") },
                   ].map((stat, index) => (
                     <div key={index} className="text-center">
                       <div className="text-2xl font-bold text-blue-600">{stat.value}</div>
@@ -449,7 +380,7 @@ export default function Home() {
               y: { delay: 2, duration: 1.5, repeat: Number.POSITIVE_INFINITY },
             }}
           >
-            <span className="text-sm text-blue-600 mb-2">{translations.exploreServices}</span>
+            <span className="text-sm text-blue-600 mb-2">{t("hero.exploreServices", "Explore Our Services")}</span>
             <ChevronDown className="h-6 w-6 text-blue-500" />
           </motion.div>
         </div>
@@ -463,7 +394,7 @@ export default function Home() {
         >
           <div className="container mx-auto px-4">
             <div className="flex flex-col md:flex-row items-center justify-between">
-              <p className="text-gray-600 font-medium mb-4 md:mb-0">{translations.trustedBy}</p>
+              <p className="text-gray-600 font-medium mb-4 md:mb-0">{t("hero.trustedBy", "Trusted by:")}</p>
               <div className="flex flex-wrap justify-center gap-8">
                 {clientLogos.map((client, index) => (
                   <motion.div
@@ -506,7 +437,7 @@ export default function Home() {
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-blue-500">{t("nav.services", "Our Services")}</h2>
             <div className="w-24 h-1 bg-blue-400 mx-auto mb-6"></div>
             <p className="text-xl text-gray-700 max-w-2xl mx-auto">
-              We offer a comprehensive range of digital solutions to help your business thrive in the digital landscape.
+              {t("services.description", "We offer a comprehensive range of digital solutions to help your business thrive in the digital landscape.")}
             </p>
           </motion.div>
 
@@ -588,18 +519,18 @@ export default function Home() {
                     <div className="ml-4">
                       <h4 className="font-medium">{t("contact.officeLocation", "Office Location")}</h4>
                       <p className="text-gray-600 mt-1">
-                        {t("contact.address", `YSM Web Office\nShared with Yohannes Hoveniersbedrijf\nZweedsestraat 8a, 16, 7418 BG Deventer`)}
+                        {t("contact.address", `EG Web Solutions\nShared with Yohannes Hoveniersbedrijf\nZweedsestraat 8a, 16, 7418 BG Deventer`)}
                       </p>
                     </div>
                   </div>
 
-                  <div className="flex items-start">
-                    <AnimatedIcon type="wiggle" className="mt-1 bg-white p-2 rounded-lg shadow-sm text-blue-500">
-                      <Mail className="h-5 w-5" />
-                    </AnimatedIcon>
-                    <div className="ml-4">
-                      <h4 className="font-medium">{t("contact.email", "Email")}</h4>
-                      <p className="text-gray-600 mt-1">info@ysmweb.com</p>
+                  <div className="flex items-start space-x-3">
+                    <Mail className="h-6 w-6 text-blue-500 mt-1" />
+                    <div>
+                      <h4 className="font-semibold text-gray-900">{t("contact.email", "Email")}</h4>
+                      <a href="mailto:egwebsolutions1@gmail.com" className="text-gray-600 mt-1 hover:text-blue-600 transition-colors">
+                        egwebsolutions1@gmail.com
+                      </a>
                     </div>
                   </div>
 
@@ -610,7 +541,7 @@ export default function Home() {
                     <div className="ml-4">
                       <h4 className="font-medium">{t("contact.workingHours", "Working Hours")}</h4>
                       <p className="text-gray-600 mt-1">
-                        {t("contact.workingHoursValue", "Monday - Friday: 9:00 - 18:00\nWeekend: By appointment")}
+                        {t("contact.workingHours", "Monday - Friday: 9:00 - 18:00\nWeekend: By appointment")}
                       </p>
                     </div>
                   </div>
@@ -619,7 +550,7 @@ export default function Home() {
                 <div className="mt-8">
                   <div className="h-64 w-full bg-white rounded-xl border border-blue-100">
                     {/* Map placeholder */}
-                    <div className="h-full w-full flex items-center justify-center text-gray-400">Interactive Map</div>
+                    <div className="h-full w-full flex items-center justify-center text-gray-400">{t("contact.interactiveMap", "Interactive Map")}</div>
                   </div>
                 </div>
               </div>
@@ -637,9 +568,7 @@ export default function Home() {
                 <form className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                      <label htmlFor="name" className="block text-sm font-medium mb-2">
-                        {t("contact.form.name", "Name")}
-                      </label>
+                      <label htmlFor="name" className="block text-sm font-medium mb-2">{t("contact.form.name", "Name")}</label>
                       <input
                         type="text"
                         id="name"
@@ -648,9 +577,7 @@ export default function Home() {
                       />
                     </div>
                     <div>
-                      <label htmlFor="email" className="block text-sm font-medium mb-2">
-                        {t("contact.form.email", "Email")}
-                      </label>
+                      <label htmlFor="email" className="block text-sm font-medium mb-2">{t("contact.form.email", "Email")}</label>
                       <input
                         type="email"
                         id="email"
@@ -659,11 +586,8 @@ export default function Home() {
                       />
                     </div>
                   </div>
-
                   <div>
-                    <label htmlFor="subject" className="block text-sm font-medium mb-2">
-                      {t("contact.form.subject", "Subject")}
-                    </label>
+                    <label htmlFor="subject" className="block text-sm font-medium mb-2">{t("contact.form.subject", "Subject")}</label>
                     <input
                       type="text"
                       id="subject"
@@ -671,26 +595,21 @@ export default function Home() {
                       placeholder={t("contact.form.subjectPlaceholder", "Subject")}
                     />
                   </div>
-
                   <div>
-                    <label htmlFor="message" className="block text-sm font-medium mb-2">
-                      {t("contact.form.message", "Message")}
-                    </label>
+                    <label htmlFor="message" className="block text-sm font-medium mb-2">{t("contact.form.message", "Message")}</label>
                     <textarea
                       id="message"
                       rows={5}
                       className="w-full px-4 py-3 rounded-lg border border-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-300 transition-all duration-200"
                       placeholder={t("contact.form.messagePlaceholder", "Your message")}
-                    />
+                    ></textarea>
                   </div>
-
-                  <Button
+                  <button
                     type="submit"
-                    size="lg"
-                    className="w-full bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-full"
+                    className="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 h-11 w-full bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-full"
                   >
                     {t("contact.form.sendMessage", "Send Message")}
-                  </Button>
+                  </button>
                 </form>
               </div>
             </motion.div>

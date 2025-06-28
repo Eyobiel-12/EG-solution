@@ -347,14 +347,14 @@ export default function GetStartedPage() {
                 <div className="space-y-2">
                   <div className="flex items-center">
                     <Mail className="h-4 w-4 mr-2 text-blue-500" />
-                    <a href="mailto:info@egwebsolutions.com" className="text-blue-500 hover:underline">
-                      info@egwebsolutions.com
+                    <a href="mailto:egwebsolutions1@gmail.com" className="text-blue-500 hover:underline">
+                      egwebsolutions1@gmail.com
                     </a>
                   </div>
                   <div className="flex items-center">
                     <PhoneCall className="h-4 w-4 mr-2 text-blue-500" />
-                    <a href="tel:+31612345678" className="text-blue-500 hover:underline">
-                      +31 6 1234 5678
+                    <a href="tel:0687033774" className="text-blue-500 hover:underline">
+                      0687033774
                     </a>
                   </div>
                 </div>

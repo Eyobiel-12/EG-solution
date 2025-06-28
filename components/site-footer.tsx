@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import EGLogo from "@/components/eg-logo"
 import { cn } from "@/lib/utils"
+import { useLanguage } from "@/components/language-context"
 
 // Import the necessary components for the language selector
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
@@ -22,7 +23,7 @@ export default function SiteFooter({ className }: SiteFooterProps) {
   const [email, setEmail] = useState("")
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubscribed, setIsSubscribed] = useState(false)
-  const [currentLanguage, setCurrentLanguage] = useState("en")
+  const { currentLanguage, t } = useLanguage()
   const currentYear = new Date().getFullYear()
 
   const handleSubscribe = async (e: React.FormEvent) => {
@@ -44,54 +45,32 @@ export default function SiteFooter({ className }: SiteFooterProps) {
     }, 1500)
   }
 
-  const handleLanguageChange = (langCode: string) => {
-    setCurrentLanguage(langCode)
-    // In a real implementation, this would update the app's locale/language
-    console.log(`Language changed to: ${langCode}`)
-  }
-
-  const languages = [
-    { code: "en", name: "English", flag: "🇺🇸" },
-    { code: "nl", name: "Nederlands", flag: "🇳🇱" },
-  ]
-
   const footerLinks = [
     { 
-      title: currentLanguage === "en" ? "About Us" : "Over ons", 
+      title: t("nav.about", "About Us"), 
       href: "/about" 
     },
     { 
-      title: currentLanguage === "en" ? "Services" : "Diensten", 
+      title: t("nav.services", "Services"), 
       href: "/#services" 
     },
     { 
-      title: currentLanguage === "en" ? "Portfolio" : "Portfolio", 
+      title: t("nav.portfolio", "Portfolio"), 
       href: "/#portfolio" 
     },
     { 
-      title: currentLanguage === "en" ? "Contact" : "Contact", 
+      title: t("nav.contact", "Contact"), 
       href: "/#contact" 
     },
     { 
-      title: currentLanguage === "en" ? "Privacy Policy" : "Privacybeleid", 
+      title: t("footer.privacyPolicy", "Privacy Policy"), 
       href: "/privacy-policy" 
     },
     { 
-      title: currentLanguage === "en" ? "Terms of Service" : "Servicevoorwaarden", 
+      title: t("footer.terms", "Terms of Service"), 
       href: "/terms" 
     },
   ]
-
-  const newsletterText = {
-    title: currentLanguage === "en" ? "Subscribe to Our Newsletter" : "Schrijf je in voor onze nieuwsbrief",
-    placeholder: currentLanguage === "en" ? "Enter your email" : "Vul je e-mailadres in",
-    button: currentLanguage === "en" ? "Subscribe" : "Inschrijven",
-    success: currentLanguage === "en" ? "Thank you for subscribing!" : "Bedankt voor je inschrijving!",
-  };
-
-  const companyDescription = currentLanguage === "en" 
-    ? "Dream It, We Build It: Empowering Your Digital Dominance with premium web development and design services."
-    : "Droom het, Wij bouwen het: Versterk uw digitale aanwezigheid met premium webontwikkeling en design diensten.";
 
   const socialLinks = [
     { icon: <Facebook className="h-5 w-5" />, href: "https://facebook.com", label: "Facebook" },
@@ -108,7 +87,7 @@ export default function SiteFooter({ className }: SiteFooterProps) {
           <div className="space-y-4">
             <EGLogo variant="light" size="md" />
             <p className="text-blue-200 max-w-xs">
-              {companyDescription}
+              {t("footer.companyDescription", "Dream It, We Build It: Empowering Your Digital Dominance with premium web development and design services.")}
             </p>
             <div className="flex space-x-3">
               {socialLinks.map((social, index) => (
@@ -165,13 +144,13 @@ export default function SiteFooter({ className }: SiteFooterProps) {
           {/* Newsletter */}
           <div>
             <h3 className="text-lg font-bold mb-4 border-b border-blue-800 pb-2">Newsletter</h3>
-            <p className="text-blue-200 mb-4">{newsletterText.title}</p>
+            <p className="text-blue-200 mb-4">{t("footer.newsletter", "Subscribe to Our Newsletter")}</p>
             <form onSubmit={handleSubscribe} className="space-y-3">
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-300 h-5 w-5" />
                 <Input
                   type="email"
-                  placeholder={newsletterText.placeholder}
+                  placeholder={t("footer.emailPlaceholder", "Enter your email")}
                   className="pl-10 bg-blue-800/50 border-blue-700 text-white placeholder:text-blue-300 focus:border-blue-500"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -206,71 +185,45 @@ export default function SiteFooter({ className }: SiteFooterProps) {
                         d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                       ></path>
                     </svg>
-                    Subscribing...
+                    {t("footer.subscribe", "Subscribe")}
                   </span>
                 ) : isSubscribed ? (
                   <span className="flex items-center">
                     <Check className="mr-2 h-4 w-4" />
-                    {newsletterText.success}
+                    {t("footer.subscribeSuccess", "Thank you for subscribing!")}
                   </span>
                 ) : (
-                  newsletterText.button
+                  t("footer.subscribe", "Subscribe")
                 )}
               </Button>
             </form>
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="pt-8 border-t border-blue-800 flex flex-col md:flex-row justify-between items-center">
-          <div className="flex flex-col md:flex-row items-center gap-4 mb-4 md:mb-0">
-            <p className="text-blue-300 text-sm">&copy; {currentYear} EG Web Solutions. All rights reserved.</p>
-
-            {/* Language Selector */}
-            <div className="flex items-center">
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="h-8 gap-1 text-blue-300 hover:text-white hover:bg-blue-800"
-                    aria-label="Select language"
-                  >
-                    <Globe className="h-4 w-4" />
-                    <span>
-                      {languages.find((lang) => lang.code === currentLanguage)?.flag || "🌐"}{" "}
-                      {languages.find((lang) => lang.code === currentLanguage)?.name || "Language"}
-                    </span>
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="bg-blue-950 border-blue-800">
-                  {languages.map((language) => (
-                    <DropdownMenuItem
-                      key={language.code}
-                      className={`text-blue-200 hover:text-white hover:bg-blue-800 cursor-pointer ${
-                        currentLanguage === language.code ? "bg-blue-800" : ""
-                      }`}
-                      onClick={() => handleLanguageChange(language.code)}
-                    >
-                      <span className="mr-2">{language.flag}</span>
-                      {language.name}
-                    </DropdownMenuItem>
-                  ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
+        {/* Bottom section with language selector and copyright */}
+        <div className="border-t border-blue-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+          <div className="flex items-center space-x-4 mb-4 md:mb-0">
+            <span className="text-blue-300">© {currentYear} EG Web Solutions. All rights reserved.</span>
           </div>
 
-          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-blue-300">
-            <Link href="/privacy-policy" className="hover:text-white transition-colors">
-              Privacy Policy
-            </Link>
-            <Link href="/terms" className="hover:text-white transition-colors">
-              Terms of Service
-            </Link>
-            <Link href="/cookies" className="hover:text-white transition-colors">
-              Cookie Policy
-            </Link>
+          {/* Language Selector */}
+          <div className="flex items-center space-x-2">
+            <Globe className="h-4 w-4 text-blue-300" />
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="sm" className="text-blue-300 hover:text-white">
+                  {currentLanguage === "en" ? "🇺🇸 English" : "🇳🇱 Nederlands"}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem onClick={() => console.log("Language changed to English")}>
+                  🇺🇸 English
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => console.log("Language changed to Nederlands")}>
+                  🇳🇱 Nederlands
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
       </div>
