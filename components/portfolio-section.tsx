@@ -678,13 +678,6 @@ export default function PortfolioSection({ portfolioRef }: PortfolioSectionProps
                       <h4 className="text-xl font-bold mb-4">{t("portfolio.projectOverview", "Project Overview")}</h4>
                       <p className="text-gray-700 dark:text-gray-300 mb-6">{selectedProject.description}</p>
 
-                      {selectedProject.technologies && (
-                        <div className="mb-6">
-                          <h4 className="font-medium mb-3">{t("portfolio.technologiesUsed", "Technologies Used")}</h4>
-                          <TechStackDisplay technologies={selectedProject.technologies} />
-                        </div>
-                      )}
-
                       {selectedProject.completionPercentage !== undefined && (
                         <div className="mb-6">
                           <div className="flex items-center justify-between mb-2">
